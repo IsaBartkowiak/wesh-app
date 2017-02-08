@@ -5,4 +5,6 @@ coverage/
 .idea/
 .tmp/
 dist/
-
+.DS_Store
+server/config/
+npm-debug.log
