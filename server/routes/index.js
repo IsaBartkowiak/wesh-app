@@ -51,6 +51,26 @@ router.get('/api/users/:id',  function(req, res) {
 });
 
 
+//PUT
+
+router.put('/api/users/:id',function (req,res) {
+  models.User.find({
+    where:{
+      id: req.params.id,
+    }
+  }).then(function (user) {
+    if (user){
+      user.updateAttributes({
+        login : req.body.login,
+        name: req.body.name,
+        lastname:  req.body.lastname,
+        biography: req.body.biography
+      })
+    }
+  }).catch(function (err) {
+    res.status(500).send({"status":"error"});
+  });
+});
 
 /************
 * EVENTS
@@ -139,7 +159,7 @@ router.post('/api/events/:id/slots/', function(req, res) {
 //create
 router.post('/compte/create', function(req, res) {
   var status = banque.creerCompte(req.body.id, req.body.somme)
-  if(status){ 
+  if(status){
     res.status(200).send({"status": "success"});
   }else{
     res.send({"status": "error", "description": "Erreur de création du compte"});
@@ -160,7 +180,7 @@ router.get('/compte/position/:id',  function(req, res) {
 //add to account
 router.post('/compte/add', function(req, res) {
   var status = banque.ajouterAuCompte(req.body.id, req.body.somme);
-  if(status){ 
+  if(status){
     res.status(200).send({"status": "success"});
   }else{
     res.send({"status": "error", "description": "Erreur d'ajout sur le compte'"});
@@ -170,7 +190,7 @@ router.post('/compte/add', function(req, res) {
 //add to account
 router.post('/compte/remove', function(req, res) {
   var status = banque.retirerDuCompte(req.body.id, req.body.somme);
-  if(status){ 
+  if(status){
     res.status(200).send({"status": "success"});
   }else{
     res.send({"status": "error", "description": "Erreur de retrait sur le compte'"});
