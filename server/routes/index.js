@@ -25,6 +25,8 @@ router.post('/api/users/', function(req, res) {
   });
 });
 
+
+console.log('ggg');
 //GET
 router.get('/api/users/:id',  function(req, res) {
  models.User.find({
