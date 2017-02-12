@@ -52,7 +52,6 @@ router.get('/api/users/:id',  function(req, res) {
 
 
 //PUT
-
 router.put('/api/users/:id',function (req,res) {
   models.User.find({
     where:{
@@ -118,6 +117,32 @@ router.get('/api/events/:id',  function(req, res) {
   })
   .catch(function (err) {
     console.log(err);
+    res.status(500).send({"status": "error", "description": err});
+  });
+});
+
+//GET ALL
+router.get('/api/events/',  function(req, res) {
+ models.Event.findAll({
+    include: [{
+      model: models.User,
+      as: 'owner'
+    },{
+      model: models.Slot,
+      as : 'slots',
+      through: {attributes: []},
+      include: [{
+        model: models.User,
+        through: {attributes: []},
+        as : 'users'
+      }]
+    }
+    ],
+    attributes: { exclude: ['UserId'] }
+  }).then(function(event) {
+    res.json(event);
+  })
+  .catch(function (err) {
     res.status(500).send({"status": "error", "description": err});
   });
 });
@@ -198,7 +223,7 @@ router.post('/compte/remove', function(req, res) {
 });
 
 router.get('/*', function(req, res, next) {
-   res.send('API banque');
+   res.send('API events');
 });
 
 
