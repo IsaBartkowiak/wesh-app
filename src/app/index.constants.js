@@ -4,7 +4,6 @@
 
   angular
     .module('banque')
-    .constant('malarkey', malarkey)
     .constant('moment', moment);
 
 })();

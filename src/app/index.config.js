@@ -9,6 +9,7 @@
   function config($logProvider, toastrConfig) {
     // Enable log
     $logProvider.debugEnabled(true);
+    console.log(toastrConfig);
 
     // Set options third-party lib
     toastrConfig.allowHtml = true;
