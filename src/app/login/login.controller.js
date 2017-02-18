@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('banque')
+    .module('events')
     .controller('LoginController', LoginController);
 
   /** @ngInject */

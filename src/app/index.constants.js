@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('banque')
+    .module('events')
     .constant('moment', moment);
 
 })();
