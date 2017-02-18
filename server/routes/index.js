@@ -4,7 +4,6 @@ var models = require('../models/index');
 
 var router = express.Router();
 
-
 /************
 * USERS
 ************/

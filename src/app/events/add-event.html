@@ -1,0 +1,40 @@
+<div class="container">
+  
+  <h3>Information</h3>
+  
+  <md-input-container>
+    <label>Titre</label>
+    <input ng-model="EventCtrl.event.title">
+  </md-input-container>
+
+  <md-input-container>
+    <label>Lieu</label>
+    <input ng-model="EventCtrl.event.title">
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>Description</label>
+    <textarea ng-model="EventCtrl.event.title" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+  </md-input-container>
+
+
+  <h3>Créneaux</h3>
+  
+  <div class="md-block" ng-repeat="i in EventCtrl.getNumber(EventCtrl.dates) track by $index | limitTo:5">
+   <md-input-container>
+    <label>Date</label>
+    <md-datepicker ng-model="EventCtrl.event.date[$index].date" md-placeholder="Enter date"></md-datepicker>
+  </md-input-container>
+  
+  <md-input-container>
+    <label>Heure</label>
+    <input ng-model="EventCtrl.event.date[$index].hour">
+  </md-input-container>
+</div>
+<md-button ng-click="EventCtrl.addField()">Ajouter</md-button>
+{{EventCtrl.event.date}}
+
+
+
+
+</div>
