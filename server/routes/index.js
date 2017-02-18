@@ -4,6 +4,43 @@ var models = require('../models/index');
 
 var router = express.Router();
 
+
+// *** authentification *** //
+passport.use(new Strategy(
+  function(login, password, cb) {
+    models.User.find({
+      where:{
+        login: login,
+      }
+    }, function(err, user){
+     if (err) { return cb(err); }
+     if (!user) { return cb(null, false); }
+     if (user.password != password) { return cb(null, false); }
+     return cb(null, user);
+   });
+  }));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  models.User.find({
+    where:{
+      id: id,
+    }
+  }, function(err, user){
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
+
+
+router.post('/api/login',
+  passport.authenticate('local', { successFlash: 'Welcome!' });
+);
+
+
 /************
 * USERS
 ************/
@@ -19,7 +56,7 @@ router.post('/api/users/', function(req, res) {
     res.status(200).send({"status": "success"});
   })
   .catch(function (err) {
-      console.log(err);
+    console.log(err);
     res.status(500).send({"status": "error"});
   });
 });
@@ -29,14 +66,14 @@ router.get('/api/users/:id',  function(req, res) {
  models.User.find({
     //inclusion des évènements gérés
     include: [{
-        model: models.Event,
-        as: 'managed_events'
+      model: models.Event,
+      as: 'managed_events'
     },
     //inclusion des évènements auquels l'util a répondu
     {
-        model: models.Event,
-        through: {attributes: []},
-        as: 'participated_events'
+      model: models.Event,
+      through: {attributes: []},
+      as: 'participated_events'
     }],
     where: {
       id: req.params.id,
@@ -85,7 +122,7 @@ router.post('/api/events/', function(req, res) {
     res.status(200).send({"status": "success"});
   })
   .catch(function (err) {
-      console.log(err);
+    console.log(err);
     res.status(500).send({"status": "error"});
   });
 });
@@ -93,57 +130,57 @@ router.post('/api/events/', function(req, res) {
 //GET
 router.get('/api/events/:id',  function(req, res) {
  models.Event.find({
+  include: [{
+    model: models.User,
+    as: 'owner'
+  },{
+    model: models.Slot,
+    as : 'slots',
+    through: {attributes: []},
     include: [{
       model: models.User,
-      as: 'owner'
-    },{
-      model: models.Slot,
-      as : 'slots',
       through: {attributes: []},
-      include: [{
-        model: models.User,
-        through: {attributes: []},
-        as : 'users'
-      }]
-    }
-    ],
-    attributes: { exclude: ['UserId'] },
-    where: {
-      id: req.params.id,
-    }
-  }).then(function(event) {
-    res.json(event);
-  })
-  .catch(function (err) {
-    console.log(err);
-    res.status(500).send({"status": "error", "description": err});
-  });
+      as : 'users'
+    }]
+  }
+  ],
+  attributes: { exclude: ['UserId'] },
+  where: {
+    id: req.params.id,
+  }
+}).then(function(event) {
+  res.json(event);
+})
+.catch(function (err) {
+  console.log(err);
+  res.status(500).send({"status": "error", "description": err});
+});
 });
 
 //GET ALL
 router.get('/api/events/',  function(req, res) {
  models.Event.findAll({
+  include: [{
+    model: models.User,
+    as: 'owner'
+  },{
+    model: models.Slot,
+    as : 'slots',
+    through: {attributes: []},
     include: [{
       model: models.User,
-      as: 'owner'
-    },{
-      model: models.Slot,
-      as : 'slots',
       through: {attributes: []},
-      include: [{
-        model: models.User,
-        through: {attributes: []},
-        as : 'users'
-      }]
-    }
-    ],
-    attributes: { exclude: ['UserId'] }
-  }).then(function(event) {
-    res.json(event);
-  })
-  .catch(function (err) {
-    res.status(500).send({"status": "error", "description": err});
-  });
+      as : 'users'
+    }]
+  }
+  ],
+  attributes: { exclude: ['UserId'] }
+}).then(function(event) {
+  res.json(event);
+})
+.catch(function (err) {
+  res.status(500).send({"status": "error", "description": err});
+});
 });
 
 
@@ -222,7 +259,7 @@ router.post('/compte/remove', function(req, res) {
 });
 
 router.get('/*', function(req, res, next) {
-   res.send('API events');
+ res.send('API events');
 });
 
 
