@@ -14,6 +14,18 @@
         controller: 'MainController',
         controllerAs: 'main'
       })
+      .state('login', {
+        url: '/se-connecter/',
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'login'
+      })
+      .state('register', {
+        url: '/creer-un-compte/',
+        templateUrl: 'app/login/register.html',
+        controller: 'RegisterController',
+        controllerAs: 'register'
+      })
       .state('addevent', {
         url: '/ajouter-evenement/',
         templateUrl: 'app/events/add-event.html',

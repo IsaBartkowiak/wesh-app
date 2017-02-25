@@ -5,20 +5,24 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
+var models = require('./models/index');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
+var session = require('express-session');
+
+
 
 
 // *** routes *** //
 var routes = require('./routes/index.js');
 
-
 // *** express instance *** //
 var app = express();
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
@@ -27,7 +31,7 @@ var allowCrossDomain = function(req, res, next) {
     else {
       next();
     }
-};
+  };
 
 // *** static directory *** //
 app.set('views', path.join(__dirname, 'views/'));
@@ -41,7 +45,53 @@ app.use(allowCrossDomain);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('lorem'));
+
+app.use(session({
+    secret:'lorem',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// *** authentification *** //
+passport.use(new Strategy({ usernameField: 'login', passwordField: 'password' },
+  function(login, password, done) {
+    models.User.find({
+      where:{
+        login: login
+      }
+    }).then(function(user) {
+      if (!user) { return done(null, false); }
+      if (user.password != password) { return done(null, false); }
+      return done(null, user);
+    })
+    .catch(function (err) {
+      return done(null, false);
+    });
+  }));
+
+passport.serializeUser(function(user, done) {
+   console.log('serialize');
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  console.log('deserialize');
+  models.User.find({
+    where:{
+      id: id,
+    },
+    attributes: { exclude: ['password'] }
+  }).then(function(user){
+    done(null, user);
+  }).catch(function(err){
+    done(err);
+  });
+});
+
 
 // *** view engine *** //
 var swig = new swig.Swig();

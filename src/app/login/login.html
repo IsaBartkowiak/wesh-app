@@ -1,0 +1,26 @@
+<!-- navigation se connecter/créer un compte -->
+<div class="connexion-nav">
+	<img class="logo" src="/assets/images/logo.png" alt="Logo Wesh">
+	<nav>
+		<a class="connexion-nav-link active" href="/se-connecter">Se connecter</a>
+		<a class="connexion-nav-link" href="/creer-un-compte/">Créer un compte</a>
+	</nav>
+</div>	
+
+<!-- bloc de connexion -->
+<section class="box login">
+	<h1 class="box-title">Se connecter</h1>
+	<h2 class="box-subtitle">Lorem ipsum dolor sit amet</h2>
+	
+	<div class="box-field">
+		<i class="icon-mail input-icon"></i>
+		<input class="input icon" required type="text" ng-model="login.login" placeholder="Adresse e-mail">
+	</div>
+	
+	<div class="box-field">
+	<i class="icon-unlock input-icon"></i>
+		<input class="input icon" required type="password" placeholder="Mot de passe" ng-model="login.password">
+	</div>
+	
+	<button ng-click="login.authentificate()" class="btn btn-primary box-btn">Se connecter</button>
+</section>

@@ -1,0 +1,51 @@
+<!-- navigation se connecter/créer un compte -->
+<div class="connexion-nav">
+	<img class="logo" src="/assets/images/logo.png" alt="Logo Wesh">
+	<nav>
+		<a class="connexion-nav-link" href="/se-connecter/">Se connecter</a>
+		<a class="connexion-nav-link active" href="/creer-un-compte/">Créer un compte</a>
+	</nav>
+</div>	
+
+<!-- bloc de connexion -->
+<section class="box register">
+	<h1 class="box-title">Créer un compte</h1>
+	<h2 class="box-subtitle">Veuillez remplir le formulaire suivant</h2>
+	
+	<form name="registerForm" class="row">
+		<!-- champ nom -->
+		<div class="box-field col-sm-6">
+			<label>Nom</label>
+			<input required ng-model="register.user.lastname">
+		</div>
+		
+		<!-- champ prenom -->
+		<div class="box-field col-sm-6">
+			<label>Prénom</label>
+			<input required ng-model="register.user.name">
+		</div>
+		
+		<!-- champ bio -->
+		<div class="box-field col-sm-12">
+			<label>Bio</label>
+			<textarea ng-model="register.user.bio"></textarea>
+		</div>
+		
+		<!-- champ email (login) -->
+		<div class="box-field col-sm-12">
+			<label>Adresse e-mail</label>
+			<input type="email" name="login" ng-pattern="/^.+@.+\..+$/" required ng-model="register.user.login">
+			<div ng-messages="registerForm.login.$error" role="alert">
+				<p ng-message-exp="['pattern']">E-mail invalide</p>
+			</div>
+		</div>
+		
+		<!-- champ mdp -->
+		<div class="box-field col-sm-12">
+			<label>Mot de passe</label>
+			<input type="password" required ng-model="register.user.password">
+		</div>
+		
+		<button ng-click="register.createAccount()" class="btn btn-primary box-btn">Créer un compte</button>
+	</form>
+</section>

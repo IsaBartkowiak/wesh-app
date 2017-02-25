@@ -2,24 +2,29 @@
   'use strict';
 
   angular
-    .module('events')
-    .controller('LoginController', LoginController);
+  .module('events')
+  .controller('LoginController', LoginController);
 
   /** @ngInject */
-  function LoginController($timeout, toastr, event, moment) {
+  function LoginController($state, $rootScope, toastr, users, auth) {
     var vm = this;
+    $rootScope.bodyClass = "connexion";
 
-    vm.events = {};
-    vm.data = moment;
+    vm.login = "";
+    vm.password = "";
+    vm.authentificate = authentificate;
 
-    activate();
-
-    function activate() {
-      event.getAll(function(data){
-        vm.events = data;
+    function authentificate() {
+      auth.login(vm.login, vm.password)
+      .then(function () {
+        toastr.success('Connexion réussie !', 'Succès');
+        $state.go("home");
+      })
+      .catch(function () {
+        toastr.error('E-mail ou mot de passe invalide', 'Erreur');
       });
-    }
-
    
+    }
+    
   }
 })();

@@ -6,7 +6,7 @@
   .controller('EventController', EventController);
 
   /** @ngInject */
-  function EventController($timeout, toastr, event, moment) {
+  function EventController($timeout, toastr, event) {
     var vm = this;
 
     vm.event = {};

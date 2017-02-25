@@ -2,13 +2,20 @@
   'use strict';
 
   angular
-    .module('events')
-    .run(runBlock);
+  .module('events')
+  .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log) {
+  function runBlock($log, $rootScope, $timeout, users) {
 
-    $log.debug('runBlock end');
+    users.loggedin(function(user){
+      $rootScope.currentUser = user;
+    });
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+      users.loggedin(function(user){
+        $rootScope.currentUser = user;
+      });
+    });
   }
 
 })();

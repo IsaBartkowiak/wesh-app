@@ -1,44 +1,56 @@
 var express = require('express');
 var models = require('../models/index');
+var passport = require('passport');
 
+
+
+var auth = function(req, res, next){
+  passport.authenticate('local', function(err, user, info) {
+   if (err) { 
+    res.status(401).json(info);
+   } //error exception
+   if (user) {
+    req.logIn(user, function (err) {
+      /* something */
+    });
+  }
+  res.json({ state: req.isAuthenticated() }); 
+})(req, res, next);
+}
 
 var router = express.Router();
 
-
-// *** authentification *** //
-passport.use(new Strategy(
-  function(login, password, cb) {
-    models.User.find({
-      where:{
-        login: login,
-      }
-    }, function(err, user){
-     if (err) { return cb(err); }
-     if (!user) { return cb(null, false); }
-     if (user.password != password) { return cb(null, false); }
-     return cb(null, user);
-   });
-  }));
-
-passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
+router.post('/api/users/login/', function(req,res,next){
+  passport.authenticate('local', function(err, user, info) {
+    if(err || !user){
+      res.status(401).json(info);
+    }
+    if (user) {
+      req.logIn(user, function (err) {
+        if(err){
+          res.status(401).json(info);
+        }
+      });
+    }
+    res.json({ status: req.isAuthenticated() });
+  })(req, res, next);
 });
 
-passport.deserializeUser(function(id, cb) {
-  models.User.find({
-    where:{
-      id: id,
-    }
-  }, function(err, user){
-    if (err) { return cb(err); }
-    cb(null, user);
+router.get('/api/users/loggedin/', function(req, res) { 
+  console.log(req.user);
+  if(req.isAuthenticated()){
+    res.json(req.user);
+  }else{
+    res.json({"status": "no user"});
+  }
+}); 
+
+router.get('/api/users/logout/', function(req, res) {
+  req.logout();
+  res.status(200).json({
+    status: 'Bye!'
   });
 });
-
-
-router.post('/api/login',
-  passport.authenticate('local', { successFlash: 'Welcome!' });
-);
 
 
 /************
@@ -49,6 +61,7 @@ router.post('/api/login',
 router.post('/api/users/', function(req, res) {
   models.User.create({
     login : req.body.login,
+    password : req.body.password,
     name: req.body.name,
     lastname:  req.body.lastname,
     biography: req.body.biography
@@ -56,7 +69,6 @@ router.post('/api/users/', function(req, res) {
     res.status(200).send({"status": "success"});
   })
   .catch(function (err) {
-    console.log(err);
     res.status(500).send({"status": "error"});
   });
 });
@@ -106,6 +118,7 @@ router.put('/api/users/:id',function (req,res) {
     res.status(500).send({"status":"error"});
   });
 });
+
 
 /************
 * EVENTS
