@@ -1,0 +1,38 @@
+.connexion{
+	background-color: $grey;
+	text-align: center;
+	&-nav{
+		margin-top: 3%;
+		margin-bottom: 35px;
+		&-link{
+			color: $text;
+			cursor: pointer;
+			font-size: 0.9em;   
+			padding: 5px 20px;
+			margin: 0 0;
+			text-transform: uppercase;
+			font-family: 'Karla';
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			transition: all .2s ease;
+			position: relative;
+			&:first-child{
+				border-right: 1px solid #cccccc;
+			}
+			&.active, &:hover{
+				text-decoration: none;
+				color: $pink;
+			}
+		}
+	}
+}
+
+body .login{
+	padding-left: 7%;
+	padding-right: 7%;
+	max-width: 450px;
+}
+
+.register{
+	margin-bottom: 9%;
+}

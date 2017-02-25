@@ -1,0 +1,41 @@
+.box{
+	transition: all .3s ease;
+	display: inline-block;
+	line-height: normal;
+	background-color: white;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-top: 2.5%;
+	padding-bottom:50px;
+	padding-left:7%;
+	padding-right:7%;
+	margin-bottom: 50px;
+	@include box-shadow();
+	@media (min-width:768px) {
+		max-width: 580px;
+		width: 50%;
+	}
+	&-title{
+		font-family: 'Open sans', sans-serif;
+		font-weight: 100;
+		font-size: 1.6em;
+	}
+	&-subtitle{
+		font-family: 'Open sans', sans-serif;
+		font-weight: 400;
+		font-size: 1em;
+		margin-top: 10px;
+		color: $light-grey;
+		margin-bottom: 30px;
+	}
+	&-field{
+		position: relative;
+		margin: 12px 0;
+		text-align: left;
+	}
+	&-btn{
+		margin-bottom: -100px;
+	}
+}
