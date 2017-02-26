@@ -1,19 +1,21 @@
-<nav class="navbar navbar-static-top navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="https://github.com/Swiip/generator-gulp-angular">
-        <span class="glyphicon glyphicon-home"></span>Events
-      </a>
-    </div>
- 
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-      <ul class="nav navbar-nav">
-        <li><a ng-href="/">Home</a></li>
-        <li><a ng-href="/ajouter-evenement/">Ajouter event</a></li>
-      </ul>
-    </div>
+<header class="header">
+  <div class="header-right">
+    <img class="logo header-right-logo" src="/assets/images/logo-white.png" alt="Logo Wesh">
+    <nav class="header-nav">
+      <a ng-href="/" ng-class="{ active: nav.currentState == 'home'}">Accueil</a>
+      <a ng-href="/ajouter-evenement/" ng-class="{ active: nav.currentState == 'addevent'}">Ajouter event</a>
+    </nav>
   </div>
-</nav>
+  <ul class="header-user list-inline">
+    <li class="header-user-alert"></li>
+    <li class="header-user-profile">{{nav.user.name}}</li>
+  </ul>
+    
+  <div class="header-text">
+    <h1 class="header-title">{{nav.bloctitle}}</h1>
+    <p class="header-subtitle">{{nav.subtitle}}</p>
+    <a class="header-add" ng-if="nav.currentState != 'addevent'" ng-href="/ajouter-evenement/"><i class="icon-plus"></i></a>  
+  </div>
 
-Bonjour {{currentUser}}
+</header>
+

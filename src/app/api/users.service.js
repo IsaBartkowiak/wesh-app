@@ -7,7 +7,7 @@
           
     function userService($resource){
           return $resource('http://localhost\:5000/api/users/', {}, {
-                create: { method: 'POST' },
+                create: { method: 'POST', withCredentials: true},
                 get: { method: 'GET', isArray: true, params:{id:'@id'} },
                 getAll: { method: 'GET', isArray: true},
                 delete: { method: 'DELETE', params:{id:'@id'} },

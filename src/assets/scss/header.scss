@@ -1,0 +1,72 @@
+body .header{
+	background-image: url('/assets/images/nav-bg.jpg');
+	position: relative;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	    background-size: 100%;
+	&-right{
+		display: inline-block;
+		vertical-align: middle;
+		width: 49%;
+		text-align: left;
+		padding: 0 30px;
+		&-logo{
+			margin: 10px 0;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+	&-nav{
+		display: inline-block;
+		vertical-align: middle;
+		padding-left:30px;
+		a{
+			text-transform: uppercase;
+			font-family: 'Karla';
+			letter-spacing: 0.05em;
+			font-size: 0.85em;
+			padding: 0 10px;
+			color: #b7b7b7;
+			text-decoration: none;
+			&.active{
+				color:white;}
+		}
+	}
+	&-user{
+		text-align: right;
+		padding: 0 5%;
+		display: inline-block;
+		vertical-align: middle;
+		width: 50%;
+		padding-left: 0;
+		color: white;
+	}
+	&-text{
+		text-align: center;
+		color: white;
+		padding-bottom: 50px;
+	}
+	&-title{
+		font-weight: 100;
+	}
+	&-subtitle{
+		font-weight: 100;
+		font-size: 1.2em;
+	}
+	&-add{
+		//position: absolute;
+		width: 35px;
+		height:35px;
+		line-height: 31px;
+		background-color: $pink;
+		border-radius: 50%;
+		text-align: center;
+		display: inline-block;
+		i{
+			color:white;
+			font-size: 13px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+}

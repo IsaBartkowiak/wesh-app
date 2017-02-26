@@ -6,18 +6,17 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, toastr, event, moment, users) {
+  function MainController($rootScope, $timeout, toastr, event, moment, users) {
     var vm = this;
+    $rootScope.bodyClass = "app";
+    $rootScope.context = "main";
 
     vm.events = {};
     vm.data = moment;
-    vm.test = test;
-    
-    function test(){
-      console.log('test');
-      // users.loggedin(function(user){
-      //   console.log(user);
-      // });
+    vm.isActive = isActive;
+
+    function isActive(viewLocation) { 
+        return viewLocation === $location.path() ? 'active' : '';
     }
 
     activate();

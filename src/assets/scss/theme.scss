@@ -23,6 +23,7 @@ html{
 
 body{
 	font-size: 0.9rem;
+	font-family: 'Open sans', sans-serif;
 }
 
 .input{
@@ -56,8 +57,12 @@ input[placeholder], [placeholder], *[placeholder] {
 	color: $light-grey;
 }
 
-p{
+p, li{
 	font-family: 'Open sans', sans-serif;
+}
+
+h1{
+	font-size: 2.1em;
 }
 .logo{
 	max-width: 100px;
@@ -89,49 +94,14 @@ body #toast-container .toast{
 	}
 }
 
-
-/* ANIMATIONS
-============================================================================= */
-
-/* leaving animations ----------------------------------------- */
-/* rotate and fall */
-@keyframes rotateFall {
-	0%      { transform: rotateZ(0deg); }
-	20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
-	40%     { transform: rotateZ(17deg); }
-	60%     { transform: rotateZ(16deg); }
-	100%    { transform: translateY(100%) rotateZ(17deg); }
+body .form-box{
+	margin-top: -30px;
+	position: relative;
+	max-width: 700px;
+	width:70%;
 }
 
-/* slide in from the bottom */
-@keyframes slideOutLeft {
-	to      { transform: translateX(-100%); }
+.form-container{
+	text-align: center;
+	background-color: #fbfbfb;
 }
-
-/* rotate out newspaper */
-@keyframes rotateOutNewspaper {
-	to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
-}
-
-/* entering animations --------------------------------------- */
-/* scale up */
-@keyframes scaleUp {
-	from    { opacity: 0.3; -webkit-transform: scale(0.8); }
-}
-
-/* slide in from the right */
-@keyframes slideInRight {
-	from    { transform:translateX(100%); }
-	to      { transform: translateX(0); }
-}
-
-/* slide in from the bottom */
-@keyframes slideInUp {
-	from    { transform:translateY(100%); }
-	to      { transform: translateY(0); }
-}
-
-.box.connexion.ng-enter    { opacity: 1; }
-.box.connexion.ng-leave     { opacity: 0; }
-
-

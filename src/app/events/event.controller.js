@@ -6,18 +6,18 @@
   .controller('EventController', EventController);
 
   /** @ngInject */
-  function EventController($timeout, toastr, event) {
+  function EventController($rootScope, toastr, event) {
     var vm = this;
+    $rootScope.context = "add";
 
     vm.event = {};
     vm.dates = 1;
     vm.getNumber = getNumber;
     vm.addField = addField;
+    vm.isActive = isActive;
 
-    activate();
-
-    function activate() {
-      
+    function isActive(viewLocation) { 
+        return viewLocation === $location.path() ? 'active' : '';
     }
     
     function addField() {

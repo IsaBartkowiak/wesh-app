@@ -3,21 +3,6 @@ var models = require('../models/index');
 var passport = require('passport');
 
 
-
-var auth = function(req, res, next){
-  passport.authenticate('local', function(err, user, info) {
-   if (err) { 
-    res.status(401).json(info);
-   } //error exception
-   if (user) {
-    req.logIn(user, function (err) {
-      /* something */
-    });
-  }
-  res.json({ state: req.isAuthenticated() }); 
-})(req, res, next);
-}
-
 var router = express.Router();
 
 router.post('/api/users/login/', function(req,res,next){
@@ -37,7 +22,6 @@ router.post('/api/users/login/', function(req,res,next){
 });
 
 router.get('/api/users/loggedin/', function(req, res) { 
-  console.log(req.user);
   if(req.isAuthenticated()){
     res.json(req.user);
   }else{
@@ -59,6 +43,7 @@ router.get('/api/users/logout/', function(req, res) {
 
 //POST
 router.post('/api/users/', function(req, res) {
+  console.log('caca');
   models.User.create({
     login : req.body.login,
     password : req.body.password,
@@ -66,8 +51,22 @@ router.post('/api/users/', function(req, res) {
     lastname:  req.body.lastname,
     biography: req.body.biography
   }).then(function(user) {
-    res.status(200).send({"status": "success"});
-  })
+    console.log('coco');
+   passport.authenticate('local', function(err, user, info) {
+    if(err || !user){
+      res.status(401).json(info);
+    }
+    if (user) {
+      req.logIn(user, function (err) {
+        if(err){
+          res.status(401).json(info);
+        }else{
+          res.json({ status: req.isAuthenticated() });
+        }
+      });
+    }
+  })(req, res);
+})
   .catch(function (err) {
     res.status(500).send({"status": "error"});
   });

@@ -17,7 +17,6 @@
       auth.register(vm.user)
       .then(function(){
         $state.go('home');
-        $scope.$broadcast ('loggedIn');
         toastr.success('Bienvenue wesh :)', 'Ola!');
       })
       .catch(function(){

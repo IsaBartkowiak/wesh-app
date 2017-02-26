@@ -11,21 +11,21 @@
       restrict: 'E',
       templateUrl: 'app/components/navbar/navbar.html',
       controller: NavbarController,
-      controllerAs: 'vm',
+      scope: {
+      bloctitle: '=',
+      subtitle: '='
+      },
+      controllerAs: 'nav',
       bindToController: true
     };
 
     return directive;
 
     /** @ngInject */
-    function NavbarController($rootScope, auth) {
+    function NavbarController($rootScope, $state, auth) {
       var vm = this;
-      vm.user = null;
-      
-      auth.getUser(function(user){
-        vm.user = user;
-        console.log(user);
-      });
+      vm.currentState = $state.current.name;
+      vm.user = $rootScope.currentUser;
     }
   }
 
