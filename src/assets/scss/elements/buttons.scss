@@ -23,4 +23,26 @@
 		border-radius: 30px;
 		border: 1px solid black;
 	}
+	&-plus{
+		border: 1px solid $pink;
+		display: block;
+		width: 30px;
+		height:30px;
+		line-height: 26px;
+		border-radius: 30px;
+		padding: 0;
+		margin: 0;
+		transform: scale(1);
+		i{
+			color:$pink;
+			font-size: 14px;
+			width: 14px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		&:hover,&:focus{
+			outline:none!important;
+			transform: scale(1.1);
+		}
+	}
 }

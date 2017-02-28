@@ -1,0 +1,40 @@
+body .md-dialog-container .dtp{
+	&-date, &-header, &-select-hour.selected, &-hour-hand, &-minute-hand, &-actual-meridien a.selected{
+		background-color: $pink!important;
+	}
+	&-year-btn-prev span, &-year-btn-next span, &-actual-year {
+		color: rgba(255, 255, 255, 0.63);
+	}
+	&-actual-year {
+		color: rgba(255, 255, 255, 0.63);
+		font-size:18px;
+	}
+	&-actual-day{
+		text-transform: uppercase;
+		font-size: 11px;
+	}
+	&-actual-month{
+		font-size:14px;
+	}
+	&-actual-num{
+		font-weight: 100;
+		font-family: 'Open Sans';
+	}
+	table.dtp-picker-days tr > td > a.selected{
+		background-color: $pink!important;
+	}
+	table.dtp-picker-days tr > td > a.hilite:not(.selected) {
+		color: $pink;
+	}
+	&-btn-today, &-btn-cancel, &-btn-ok{
+		font-size: 10px;
+		background-color: #e6e6e6;
+	}
+	&-picker-time > a {
+		font-size: 12px;
+	}
+}
+
+body .md-dialog-container{
+	position: fixed;
+}

@@ -57,11 +57,11 @@ app.use(passport.session());
 
 
 // *** authentification *** //
-passport.use(new Strategy({ usernameField: 'login', passwordField: 'password' },
-  function(login, password, done) {
+passport.use(new Strategy({ usernameField: 'email', passwordField: 'password' },
+  function(email, password, done) {
     models.User.find({
       where:{
-        login: login
+        email: email
       }
     }).then(function(user) {
       if (!user) { return done(null, false); }
@@ -74,12 +74,10 @@ passport.use(new Strategy({ usernameField: 'login', passwordField: 'password' },
   }));
 
 passport.serializeUser(function(user, done) {
-   console.log('serialize');
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('deserialize');
   models.User.find({
     where:{
       id: id,

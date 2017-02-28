@@ -5,8 +5,15 @@ var passport = require('passport');
 
 var router = express.Router();
 
+/************
+* AUTHENTIFICATION
+************/
+
+//login
 router.post('/api/users/login/', function(req,res,next){
+  console.log(req.body);
   passport.authenticate('local', function(err, user, info) {
+    console.log(info);
     if(err || !user){
       res.status(401).json(info);
     }
@@ -21,14 +28,17 @@ router.post('/api/users/login/', function(req,res,next){
   })(req, res, next);
 });
 
+//l'utilisateur est connecté ?
 router.get('/api/users/loggedin/', function(req, res) { 
   if(req.isAuthenticated()){
-    res.json(req.user);
+    console.log(req.user);
+    res.json({"user": req.user});
   }else{
-    res.json({"status": "no user"});
+    res.json({"status": "not authenticated"});
   }
 }); 
 
+//logout
 router.get('/api/users/logout/', function(req, res) {
   req.logout();
   res.status(200).json({
@@ -41,17 +51,15 @@ router.get('/api/users/logout/', function(req, res) {
 * USERS
 ************/
 
-//POST
+//Création
 router.post('/api/users/', function(req, res) {
-  console.log('caca');
   models.User.create({
-    login : req.body.login,
+    email : req.body.email,
     password : req.body.password,
     name: req.body.name,
     lastname:  req.body.lastname,
     biography: req.body.biography
   }).then(function(user) {
-    console.log('coco');
    passport.authenticate('local', function(err, user, info) {
     if(err || !user){
       res.status(401).json(info);
@@ -75,7 +83,7 @@ router.post('/api/users/', function(req, res) {
 //GET
 router.get('/api/users/:id',  function(req, res) {
  models.User.find({
-    //inclusion des évènements gérés
+    //inclusion des évènements gérés par l'util
     include: [{
       model: models.Event,
       as: 'managed_events'
@@ -98,7 +106,7 @@ router.get('/api/users/:id',  function(req, res) {
 });
 
 
-//PUT
+//Modification
 router.put('/api/users/:id',function (req,res) {
   models.User.find({
     where:{
@@ -107,7 +115,7 @@ router.put('/api/users/:id',function (req,res) {
   }).then(function (user) {
     if (user){
       user.updateAttributes({
-        login : req.body.login,
+        email : req.body.email,
         name: req.body.name,
         lastname:  req.body.lastname,
         biography: req.body.biography
@@ -126,15 +134,14 @@ router.put('/api/users/:id',function (req,res) {
 //POST
 router.post('/api/events/', function(req, res) {
   models.Event.create({
-    name: req.body.name,
+    title: req.body.title,
     description:  req.body.description,
     place: req.body.place,
-    UserId : req.body.userId
+    UserId : req.body.UserId
   }).then(function(event) {
-    res.status(200).send({"status": "success"});
+    res.status(200).send({"status": "success", "id": event.id});
   })
   .catch(function (err) {
-    console.log(err);
     res.status(500).send({"status": "error"});
   });
 });
@@ -202,9 +209,9 @@ router.get('/api/events/',  function(req, res) {
 
 //POST
 router.post('/api/events/:id/slots/', function(req, res) {
+  console.log('ehoh');
   models.Slot.create({
     date : req.body.date,
-    hour: req.body.hour,
     choosen:  false
   }).then(function(slot) {
     models.Occur.create({
@@ -224,51 +231,6 @@ router.post('/api/events/:id/slots/', function(req, res) {
   });
 });
 
-
-/**
-* COMPTE
-*/
-
-//create
-router.post('/compte/create', function(req, res) {
-  var status = banque.creerCompte(req.body.id, req.body.somme)
-  if(status){
-    res.status(200).send({"status": "success"});
-  }else{
-    res.send({"status": "error", "description": "Erreur de création du compte"});
-  }
-});
-
-//getPosition
-router.get('/compte/position/:id',  function(req, res) {
-  //res.send('hhhh')
-  var compte = banque.positionDuCompte(req.params.id);
-  if(compte){
-    res.json(compte);
-  }else{
-    res.send({"status": "error", "description": "Account does not exist"});
-  }
-});
-
-//add to account
-router.post('/compte/add', function(req, res) {
-  var status = banque.ajouterAuCompte(req.body.id, req.body.somme);
-  if(status){
-    res.status(200).send({"status": "success"});
-  }else{
-    res.send({"status": "error", "description": "Erreur d'ajout sur le compte'"});
-  }
-});
-
-//add to account
-router.post('/compte/remove', function(req, res) {
-  var status = banque.retirerDuCompte(req.body.id, req.body.somme);
-  if(status){
-    res.status(200).send({"status": "success"});
-  }else{
-    res.send({"status": "error", "description": "Erreur de retrait sur le compte'"});
-  }
-});
 
 router.get('/*', function(req, res, next) {
  res.send('API events');

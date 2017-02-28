@@ -34,8 +34,8 @@
 		<!-- champ email (login) -->
 		<div class="box-field col-sm-12">
 			<label>Adresse e-mail</label>
-			<input type="email" name="login" ng-pattern="/^.+@.+\..+$/" required ng-model="register.user.login">
-			<div ng-messages="registerForm.login.$error" role="alert">
+			<input type="email" name="email" ng-pattern="/^.+@.+\..+$/" required ng-model="register.user.email">
+			<div ng-messages="registerForm.email.$error" role="alert">
 				<p ng-message-exp="['pattern']">E-mail invalide</p>
 			</div>
 		</div>

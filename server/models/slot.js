@@ -2,7 +2,6 @@
 module.exports = function(sequelize, DataTypes) {
   var Slot = sequelize.define('Slot', {
     date: DataTypes.DATE,
-    hour: DataTypes.TIME,
     choosen: DataTypes.BOOLEAN
   }, {
     freezeTableName: true,

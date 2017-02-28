@@ -25,7 +25,7 @@
     function register(user){
       var deferred = $q.defer();
      users.create({
-      login: user.login,
+      email: user.email,
       password: user.password,
       name: user.name,
       lastname: user.lastname,
@@ -42,10 +42,10 @@
    }
    
     //connexion d'un utilisateur
-    function login(login, password){
+    function login(email, password){
       var deferred = $q.defer();
       users.login({
-        login: login,
+        email: email,
         password : password
       },
       function(user){

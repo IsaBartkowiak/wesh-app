@@ -38,7 +38,7 @@ body{
 		font-size:17px;
 		height:17px;
 		margin: auto;
-		left:12px;
+		left:23px;
 	}
 }
 
@@ -104,4 +104,26 @@ body .form-box{
 .form-container{
 	text-align: center;
 	background-color: #fbfbfb;
+}
+body .addevent-slot{
+	margin: 2px 0;
+    display: inline-block;
+    width: 100%;
+	.box-field{
+		margin: 0;
+	}
+	&-icon{
+		font-size: 22px;
+	}
+	&-input{
+		width: 95%;
+	}
+	&-btn{
+		    height: 40px;
+    line-height: 35px;
+    .btn{
+    	display: inline-block;
+    	vertical-align: middle;
+    }
+	}
 }

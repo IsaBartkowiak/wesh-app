@@ -1,5 +1,7 @@
 $icomoon-font-path: "/assets/fonts";
 
+$icon-calendar: "\e900";
+$icon-notifications_none: "\e901";
 $icon-eye: "\e000";
 $icon-paper-clip: "\e001";
 $icon-mail: "\e002";
@@ -105,6 +107,7 @@ $icon-file-add: "\e125";
 $icon-file-subtract: "\e126";
 $icon-help: "\e127";
 $icon-ellipsis: "\e129";
+$icon-user: "\e902";
 
 
 @font-face {
@@ -132,6 +135,16 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-calendar {
+  &:before {
+    content: $icon-calendar;
+  }
+}
+.icon-notifications_none {
+  &:before {
+    content: $icon-notifications_none;
+  }
+}
 .icon-eye {
   &:before {
     content: $icon-eye;
@@ -655,5 +668,10 @@ i {
 .icon-ellipsis {
   &:before {
     content: $icon-ellipsis;
+  }
+}
+.icon-user {
+  &:before {
+    content: $icon-user;
   }
 }

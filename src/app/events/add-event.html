@@ -1,44 +1,65 @@
 <navbar bloctitle="'Ajouter un event'" subtitle="'Lorem ipsum dolor sit amet ut primum!'"></navbar>
 
-<div class="form-container">
-<div class="box form-box">
-  
-  <h3>Information</h3>
-  
-  <md-input-container>
-    <label>Titre</label>
-    <input ng-model="EventCtrl.event.title">
-  </md-input-container>
+<div class="form-container addevent">
+  <div class="box form-box">
+    <form name="addEventForm" class="row">
+      <!-- ****** INFO ************************** -->
+      <h3 class="box-title">Infos</h3>
+      <!-- champ titre -->
+      <div class="box-field col-sm-6">
+        <label>Titre</label>
+        <input required ng-model="EventCtrl.event.title">
+      </div>
+      <!-- champ lieu -->
+      <div class="box-field col-sm-6">
+        <label>Lieu</label>
+        <input required ng-model="EventCtrl.event.place">
+      </div>
+      
+      <!-- champ description -->
+      <div class="box-field col-sm-12">
+        <label>Description</label>
+        <textarea ng-model="EventCtrl.event.description"  rows="5"></textarea>
+      </div>
 
-  <md-input-container>
-    <label>Lieu</label>
-    <input ng-model="EventCtrl.event.title">
-  </md-input-container>
-
-  <md-input-container class="md-block">
-    <label>Description</label>
-    <textarea ng-model="EventCtrl.event.title" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-  </md-input-container>
-
-
-  <h3>Créneaux</h3>
-  
-  <div class="md-block" ng-repeat="i in EventCtrl.getNumber(EventCtrl.dates) track by $index | limitTo:5">
-   <md-input-container>
-    <label>Date</label>
-    <md-datepicker ng-model="EventCtrl.event.date[$index].date" md-placeholder="Enter date"></md-datepicker>
-  </md-input-container>
-  
-  <md-input-container>
-    <label>Heure</label>
-    <input ng-model="EventCtrl.event.date[$index].hour">
-  </md-input-container>
-</div>
-<md-button ng-click="EventCtrl.addField()">Ajouter</md-button>
-{{EventCtrl.event.date}}
-
-
-
-
-</div>
+      <!-- ****** CRENEAUX ************************** -->
+       <h3 class="box-title">Créneaux</h3>
+       
+       <div class="col-sm-12">
+                <label>Date(s)</label>
+       </div>
+        
+      <!-- 1er champ datepicker -->
+      <div class="addevent-slot">
+       <div class="box-field col-xs-10">
+          <i class="icon-calendar input-icon"></i>
+          <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="EventCtrl.dates[0].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
+        </div>
+        
+         <div class="col-xs-2 addevent-slot-btn">
+               <span class="btn btn-plus" ng-click="EventCtrl.addField()">
+                 <i class="icon-plus"></i>
+               </span>
+         </div>
+         </div>
+      
+      <!-- repeater -->
+      <div class="addevent-slot" ng-repeat="field in EventCtrl.field track by $index | limitTo:4">
+        
+        <!-- bouton input -->
+        <div class="box-field col-xs-10">
+          <i class="icon-calendar input-icon"></i>
+          <input value="" class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="EventCtrl.dates[field.id].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
+        </div>
+        <!-- bouton supprimer -->
+         <div class="col-xs-2 addevent-slot-btn">
+               <span class="btn btn-plus" ng-click="EventCtrl.removeField(field)">
+                 <i class="icon-trash"></i>
+               </span>
+         </div>
+      </div> 
+       <!-- bouton validation -->
+      <button ng-click="EventCtrl.addEvent(addEventForm)" class="btn btn-primary box-btn">Valider</button>
+    </form>
+  </div>
 </div>

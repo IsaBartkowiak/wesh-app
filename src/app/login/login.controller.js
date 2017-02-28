@@ -10,12 +10,12 @@
     var vm = this;
     $rootScope.bodyClass = "connexion";
 
-    vm.login = "";
+    vm.email = "";
     vm.password = "";
     vm.authentificate = authentificate;
 
     function authentificate() {
-      auth.login(vm.login, vm.password)
+      auth.login(vm.email, vm.password)
       .then(function () {
         toastr.success('Connexion réussie !', 'Succès');
         $state.go("home");
