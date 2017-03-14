@@ -7,8 +7,8 @@
 
   /** @ngInject */
   function cleanDate(moment) {
-    return function(date) {
-      return moment(date).format('DD MMMM YYYY');
+    return function(date, format) {
+      return moment(date).format(format);
     };
   }
 
