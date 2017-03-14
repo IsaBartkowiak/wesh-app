@@ -42,6 +42,11 @@
                </span>
          </div>
          </div>
+         
+         
+      <gmap-picker model="EventCtrl.geocode"></gmap-picker>
+      
+      {{EventCtrl.geocode}}
       
       <!-- repeater -->
       <div class="addevent-slot" ng-repeat="field in EventCtrl.field track by $index | limitTo:4">

@@ -12,13 +12,12 @@
           <h4>Créneaux</h4>
           <ul class="list-group list-group-flush">
             <li ng-repeat="slot in event.slots" class="list-group-item">
-              le {{slot.date}} à {{slot.hour}}
+              le {{slot.date | cleanDate}}
               <span style="padding: 0 10px" ng-repeat="user in slot.users">{{user.name}}</span>
             </li>
           </ul>  
         </div>
       </div>
     </div>
-
 
   </div>

@@ -15,6 +15,7 @@
    vm.field = [];
    vm.fieldCount = 0;
    vm.dates = {};
+   vm.geocode = "";
    vm.getNumber = getNumber;
    vm.addField = addField;
    vm.removeField = removeField;

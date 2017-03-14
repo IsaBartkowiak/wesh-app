@@ -53,6 +53,7 @@ router.get('/api/users/logout/', function(req, res) {
 
 //Création
 router.post('/api/users/', function(req, res) {
+  console.log(req.body);
   models.User.create({
     email : req.body.email,
     password : req.body.password,
@@ -209,7 +210,6 @@ router.get('/api/events/',  function(req, res) {
 
 //POST
 router.post('/api/events/:id/slots/', function(req, res) {
-  console.log('ehoh');
   models.Slot.create({
     date : req.body.date,
     choosen:  false
