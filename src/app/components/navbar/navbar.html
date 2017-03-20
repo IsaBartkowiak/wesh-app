@@ -8,13 +8,13 @@
   </div>
   <ul class="header-user list-inline">
     <li class="header-user-alert"></li>
-    <li class="header-user-profile">{{nav.user.name}}</li>
+	  <li class="header-user-profile"><a ng-href="/profile/">{{nav.user.name}}</a></li>
   </ul>
-    
+
   <div class="header-text">
     <h1 class="header-title">{{nav.bloctitle}}</h1>
     <p class="header-subtitle">{{nav.subtitle}}</p>
-    <a class="header-add" ng-if="nav.currentState != 'addevent'" ng-href="/ajouter-evenement/"><i class="icon-plus"></i></a>  
+    <a class="header-add" ng-if="nav.currentState != 'addevent'" ng-href="/ajouter-evenement/"><i class="icon-plus"></i></a>
   </div>
 
 </header>

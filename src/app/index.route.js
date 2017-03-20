@@ -31,7 +31,13 @@
         templateUrl: 'app/events/add-event.html',
         controller: 'EventController',
         controllerAs: 'EventCtrl'
-      });
+      })
+	  .state('profile',{
+			url:'/profile/',
+			templateUrl: 'app/profile/profile.html',
+			controller:'ProfileCtrl',
+			controllerAS:'Profile'
+	  });
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
