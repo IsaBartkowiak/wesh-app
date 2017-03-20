@@ -12,17 +12,17 @@
       $rootScope.currentUser = user;
     });
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-      // users.loggedin(function(data){
-      //   if(data.user){
-      //     $rootScope.currentUser = data.user;
-      //   }else if(toState.name != "register"){
-      //      $state.go('login');
-      //   }
-      // });
-      $rootScope.currentUser = {
-        name:"Isadora",
+      users.loggedin(function(data){
+        if(data.user){
+          $rootScope.currentUser = data.user;
+        }else if(toState.name != "register"){
+           $state.go('login');
+        }
+      });
+      // $rootScope.currentUser = {
+      //   name:"Isadora",
         
-      }
+      // }
     });
   }
 
