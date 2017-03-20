@@ -11,9 +11,7 @@ var router = express.Router();
 
 //login
 router.post('/api/users/login/', function(req,res,next){
-  console.log(req.body);
   passport.authenticate('local', function(err, user, info) {
-    console.log(info);
     if(err || !user){
       res.status(401).json(info);
     }
@@ -53,7 +51,6 @@ router.get('/api/users/logout/', function(req, res) {
 
 //Création
 router.post('/api/users/', function(req, res) {
-  console.log(req.body);
   models.User.create({
     email : req.body.email,
     password : req.body.password,
@@ -160,6 +157,7 @@ router.get('/api/events/:id',  function(req, res) {
     include: [{
       model: models.User,
       through: {attributes: []},
+      attributes: { exclude: ['password'] },
       as : 'users'
     }]
   }
@@ -190,6 +188,7 @@ router.get('/api/events/',  function(req, res) {
     include: [{
       model: models.User,
       through: {attributes: []},
+      attributes: { exclude: ['password'] },
       as : 'users'
     }]
   }
@@ -226,7 +225,41 @@ router.post('/api/events/:id/slots/', function(req, res) {
     });
   })
   .catch(function (err) {
-    console.log(err);
+    res.status(500).send({"status": "error"});
+  });
+});
+
+
+/************
+* CRENEAU
+************/
+
+//POST
+router.post('/api/events/:id/participations/', function(req, res) {
+  models.Participate.create({
+    EventId : parseInt(req.params.id),
+    UserId : req.body.userId,
+    SlotId : req.body.slotId
+  })
+  .then(function(part){
+    res.status(200).send({"status": "success"});
+  })
+  .catch(function (err) {
+    res.status(500).send({"status": "error"});
+  });
+});
+
+//delete
+router.delete('/api/participations/:id/user/:userid', function(req, res) {
+  models.Participate.destroy({
+    where: {
+      UserId : parseInt(req.params.userid),
+      SlotId : parseInt(req.params.id)
+    }
+  }).then(function(participation){
+    res.status(200).send({"status": "success"});
+  })
+  .catch(function (err) {
     res.status(500).send({"status": "error"});
   });
 });
