@@ -1,0 +1,94 @@
+.eventlist{
+	max-width: 80%;
+	margin: auto;
+	padding: 40px 0;
+	&-title{
+		font-family: 'gt-medium';		
+		letter-spacing: 0;
+		font-size: 1.6em;
+	}
+	&-content{
+		text-decoration: none;
+		cursor:pointer;
+		text-align: center;
+		background-color: white;
+		display: block;
+		margin-bottom: 30px;
+		padding-bottom: 20px;
+		color: $text;
+		transition: all .3s ease;
+		box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.07);
+		&:hover{
+			text-decoration: none;
+			box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+			color: $text;
+			img{
+				transform: scale(1);
+				opacity: 0.1;
+			}
+			.eventlist-slot{
+				opacity: 1;
+				transform: translate(0, 0);
+			}
+		}
+	}
+	&-author{
+		font-family: 'gt';
+		color: $pink;
+		font-weight: 600;
+		letter-spacing: 0;
+	}
+	&-info{
+		margin: 0;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		border-top: 1px solid $border-grey;
+		border-bottom: 1px solid $border-grey;
+	}
+	&-place{
+		font-family: 'gt';
+		color: $light-grey;
+	}
+	&-text{
+		display: inline-block;
+		padding: 0 30px;
+	}
+	&-slot{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 0;
+		margin: auto;
+		font-family: 'gt-medium';
+		color: white;
+		font-size: 1.3em;
+		opacity: 0;
+		transform: translate(0, 20px);
+		transition: all .4s ease;
+	}
+	&-img{
+		max-width: 100%;
+		transform: scale(1.1);
+		transition: all .3s ease;
+		backface-visibility: hidden;
+		opacity: 1;
+	}
+	&-subtitle{
+		
+	}
+	&-imgwrapper{
+		display: inline-block;
+		height: 150px;
+		overflow: hidden;
+		background-color: #2d3645;
+		position: relative;
+		vertical-align: bottom;
+	}
+	&-description{
+		text-align: left;
+		font-family: 'gt';
+		transform-origin: center;		
+	}
+}

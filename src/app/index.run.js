@@ -19,7 +19,7 @@
       //      $state.go('login');
       //   }
       // });
-		$rootScope.currentUser = {"id":2,"email":"pierrotl15@gmail.com","name":"Pierre","lastname":"Liaubet","biography":"Mangeur de PORC","createdAt":"2017-03-07T12:28:33.488Z","updatedAt":"2017-03-07T12:28:33.488Z"};
+		$rootScope.currentUser = {"id":3,"email":"pierrotl15@gmail.com","name":"Pierre","lastname":"Liaubet","biography":"Mangeur de PORC","createdAt":"2017-03-07T12:28:33.488Z","updatedAt":"2017-03-07T12:28:33.488Z"};
 
     });
   }

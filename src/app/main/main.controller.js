@@ -10,20 +10,18 @@
     var vm = this;
     $rootScope.bodyClass = "app";
     $rootScope.context = "main";
-
-    vm.events = {};
+    
+    vm.events = [];
     vm.data = moment;
-    vm.isActive = isActive;
+    vm.filter = {};
+    vm.activeTab = "all";
     vm.addUserParticipation = addUserParticipation;
     vm.containsObject = containsObject;
     vm.removeUserParticipation = removeUserParticipation;
     vm.getIndexOf = getIndexOf;
-    
-    
-
-    function isActive(viewLocation) { 
-      return viewLocation === $location.path() ? 'active' : '';
-    }
+    vm.showAll = showAll;
+    vm.showUser = showUser;
+    vm.showDone = showDone;
 
     activate();
 
@@ -58,6 +56,23 @@
         }
       });
     }
+    
+    function showAll(){
+      vm.filter = {};
+      vm.activeTab = "all";
+    }
+    
+    function showUser(){
+      vm.filter = {owner:{id:$rootScope.currentUser.id}};
+      vm.activeTab = "user";
+    }
+    
+    function showDone(){
+      vm.filter = {slots:{chosen:true}};
+      vm.activeTab = "done";
+    }
+    
+    
     
     function containsObject(obj, array) {
       for (var i = 0; i < array.length; i++) {

@@ -1,28 +1,49 @@
-<navbar bloctitle="'Bonjour '+currentUser.name" subtitle="'Lorem ipsum dolor sit amet ut primum caetere doloris !'"></navbar>
-<div class="container">
-  <div class="">
-    <div ng-repeat="event in main.events">
-      <div class="card">
-        <div class="card-block">
-          <h2 class="card-title">{{event.title}}</h2>
-          <p class="card-text">{{event.description}} à {{event.place}}</p>
-          <span>Crée par {{event.owner.name}} {{event.owner.lastname}}</span>
-        </div>
-        
-        {{event.id}}
-        
-        <div class="creaneau" ng-if="event.slots.length > 0">
-          <h4>Créneaux</h4>
-          <ul class="list-group list-group-flush">
-            <li ng-repeat="slot in event.slots" class="list-group-item" 
-            ng-click="main.addUserParticipation(event, slot)"
-            ng-class="{'active': main.containsObject(currentUser, slot.users)}">
-              Le {{slot.date | cleanDate: 'DD MMMM YYYY'}} à {{slot.date | cleanDate: 'kk'}} heures
-              <span style="padding: 0 10px" ng-repeat="user in slot.users">{{user.name}}</span>
-            </li>
-          </ul>  
-        </div>
-      </div>
-    </div>
+<navbar 
+bloctitle="'Bonjour '+currentUser.name" 
+subtitle="'Lorem ipsum dolor sit amet ut primum caetere doloris !'">
+</navbar>
 
+<nav class="tab">
+  <span class="tab-link" ng-class="{'active': main.activeTab == 'all'}" ng-click="main.showAll()">Tous</span>
+  <span class="tab-link" ng-class="{'active': main.activeTab == 'user'}" ng-click="main.showUser()">Mes évènements</span>
+  <span class="tab-link" ng-class="{'active': main.activeTab == 'done'}" ng-click="main.showDone()">Terminé</span>
+</nav>
+
+<section class="eventlist">
+  <div class="row">   
+    <div ng-repeat="event in main.events | filter: main.filter" class="col-md-4">
+      
+      <a class="eventlist-content">
+        <span class="eventlist-imgwrapper">
+          <img src="https://media.timeout.com/images/101705313/image.jpg" alt="" class="eventlist-img">
+          <p class="eventlist-slot">{{event.slots.length}} créneaux disponibles</p>
+        </span>
+        <ul class="eventlist-info list-inline">
+          <li class="eventlist-place">
+            <i class="icon-marker eventlist-place-icon"></i>
+            {{event.place}}
+          </li>
+          <!-- <li class="eventlist-slot">{{event.slots.length}} créneaux</li> -->
+        </ul>
+        <span class="eventlist-text">
+          <h2 class="eventlist-title">{{event.title}}</h2>
+          <p class="eventlist-author">Crée par {{event.owner.name}} {{event.owner.lastname}}</p>
+          <p class="eventlist-description">{{event.description}}</p>
+        </span>
+      </a>
+
+    </div>
   </div>
+</section>
+
+<!--       <div class="creaneau" ng-if="event.slots.length > 0">
+        <h4>Créneaux</h4>
+        <ul class="list-group list-group-flush">
+          <li ng-repeat="slot in event.slots" class="list-group-item" 
+          ng-click="main.addUserParticipation(event, slot)"
+          ng-class="{'active': main.containsObject(currentUser, slot.users)}">
+          Le {{slot.date | cleanDate: 'DD MMMM YYYY'}} à {{slot.date | cleanDate: 'kk'}} heures
+          <span style="padding: 0 10px" ng-repeat="user in slot.users">{{user.name}}</span>
+        </li>
+      </ul>  
+    </div> -->

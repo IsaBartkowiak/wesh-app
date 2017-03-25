@@ -1,0 +1,21 @@
+$font-path: "/assets/fonts";
+
+@font-face {
+  font-family: 'gt-bold';
+  src: url('#{$font-path}/gt-walsheim-bold-web.ttf?i3svyf') format('truetype');
+}
+
+@font-face {
+  font-family: 'gt-light';
+  src: url('#{$font-path}/gt-walsheim-light-web.ttf?i3svyf') format('truetype');
+}
+
+@font-face {
+  font-family: 'gt-medium';
+  src: url('#{$font-path}/gt-walsheim-medium-web.ttf?i3svyf') format('truetype');
+}
+
+@font-face {
+  font-family: 'gt';
+  src: url('#{$font-path}/gt-walsheim-web.ttf?i3svyf') format('truetype');
+}

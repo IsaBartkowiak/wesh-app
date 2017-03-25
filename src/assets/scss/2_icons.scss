@@ -1,6 +1,7 @@
 $icomoon-font-path: "/assets/fonts";
 
 $icon-calendar: "\e900";
+$icon-marker: "\e900";
 $icon-notifications_none: "\e901";
 $icon-eye: "\e000";
 $icon-paper-clip: "\e001";
@@ -673,5 +674,11 @@ i {
 .icon-user {
   &:before {
     content: $icon-user;
+  }
+}
+
+.icon-marker {
+  &:before {
+    content: $icon-marker;
   }
 }
