@@ -1,0 +1,27 @@
+<navbar bloctitle="single.event.title" subtitle="single.event.description"></navbar>
+
+
+<div class="form-container addevent">
+	
+	<div class="box form-box">
+		<form name="addEventForm" class="row">
+			
+			<h3 class="box-title">Créneaux proposés</h3>
+			
+			
+			<div class="creaneau" ng-if="single.event.slots.length > 0">
+				<ul class="list-group list-group-flush">
+					<li ng-repeat="slot in single.event.slots" class="list-group-item" 
+					ng-click="main.addUserParticipation(event, slot)"
+					ng-class="{'active': main.containsObject(currentUser, slot.users)}">
+					Le {{slot.date | cleanDate: 'DD MMMM YYYY'}} à {{slot.date | cleanDate: 'kk'}} heures
+					<span style="padding: 0 10px" ng-repeat="user in slot.users">{{user.name}}</span>
+				</li>
+			</ul>  
+		</div>
+
+			<!-- bouton validation -->
+			<button ng-click="EventCtrl.addEvent(addEventForm)" class="btn btn-primary box-btn">Valider</button>
+		</form>
+	</div>
+</div>

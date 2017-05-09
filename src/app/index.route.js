@@ -32,6 +32,12 @@
         controller: 'EventController',
         controllerAs: 'EventCtrl'
       })
+      .state('singleevent', {
+        url: '/evenement/:id',
+        templateUrl: 'app/events/single-event.html',
+        controller: 'SingleEventController',
+        controllerAs: 'single'
+      })
 	  .state('profile',{
 			url:'/profile/',
 			templateUrl: 'app/profile/profile.html',
