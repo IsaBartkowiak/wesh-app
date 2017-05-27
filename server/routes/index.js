@@ -20,9 +20,9 @@ router.post('/api/users/login/', function(req,res,next){
         if(err){
           res.status(401).json(info);
         }
+          res.json({ status: req.isAuthenticated() });
       });
     }
-    res.json({ status: req.isAuthenticated() });
   })(req, res, next);
 });
 
@@ -111,18 +111,30 @@ router.put('/api/users/:id',function (req,res) {
       id: req.params.id,
     }
   }).then(function (user) {
-    if (user){
-      user.updateAttributes({
-        email : req.body.email,
-        name: req.body.name,
-        lastname:  req.body.lastname,
-        biography: req.body.biography
-      })
-    }
-  }).catch(function (err) {
-    res.status(500).send({"status":"error"});
-  });
-});
+      //Avec changement de mot de passe
+        if (req.body.newPassword != "" && req.body.confirmNewPassword != ""){
+          user.updateAttributes({
+            email : req.body.email,
+            name: req.body.name,
+            lastname:  req.body.lastname,
+            biography: req.body.biography,
+            password: req.body.newPassword
+          });
+        //sans changement de mdp
+        }else{
+          user.updateAttributes({
+            email : req.body.email,
+            name: req.body.name,
+            lastname:  req.body.lastname,
+            biography: req.body.biography
+          });
+        }
+        res.status(200).send({"status":"success"});
+
+      }).catch(function (err) {
+        res.status(500).send({"status":"error"});
+      });
+    });
 
 
 /*****************************************************************************
@@ -333,21 +345,21 @@ router.put('/api/events/:id/close/',function (req,res) {
     event.updateAttributes({
      closed: true
    });
-     models.Slot.find({
-    where:{
-      id: parseInt(req.body.id),
-    }
-  })
-  .then(function (slot) {
-    slot.updateAttributes({
-     choosen: true
-   });
+    models.Slot.find({
+      where:{
+        id: parseInt(req.body.id),
+      }
+    })
+    .then(function (slot) {
+      slot.updateAttributes({
+       choosen: true
+     });
       res.status(200).send({"status": "success"});
-  })
-  .catch(function (err) {
-    res.status(500).send({"status":"error"});
-  });
-  
+    })
+    .catch(function (err) {
+      res.status(500).send({"status":"error"});
+    });
+    
   })
   .catch(function (err) {
     res.status(500).send({"status":"error"});

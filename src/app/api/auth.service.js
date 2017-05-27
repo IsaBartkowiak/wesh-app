@@ -43,16 +43,21 @@
    
     //connexion d'un utilisateur
     function login(email, password){
+      console.log('test');
       var deferred = $q.defer();
       users.login({
         email: email,
         password : password
       },
       function(user){
+        console.log(user);
+        console.log("1");
         currentUser = user;
         deferred.resolve();
       },
-      function(){
+      function(err){
+        console.log(err);
+        console.log("2");
         deferred.reject();
       });
       return deferred.promise;

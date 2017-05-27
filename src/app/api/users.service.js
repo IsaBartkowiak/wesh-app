@@ -11,7 +11,11 @@
                 get: { method: 'GET', isArray: true, params:{id:'@id'} },
                 getAll: { method: 'GET', isArray: true},
                 delete: { method: 'DELETE', params:{id:'@id'} },
-                update: { method: 'PUT', params:{id:'@id'}},
+                update: { 
+                  method: 'PUT',
+                  params:{id:'@id'},
+                  url: 'http://localhost\:5000/api/users/:id'
+                },
                 login: { 
                   url: 'http://localhost\:5000/api/users/login/',
                   method: 'POST',

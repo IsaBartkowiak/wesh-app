@@ -30,6 +30,7 @@
       vm.notificationsCount = 0;
       vm.readNotif = readNotif;
       vm.notifPanel = false;
+      vm.logout = logout;
       
       init();
 
@@ -47,10 +48,15 @@
       
       function readNotif(id){
         notification.read({id: id}, {}, function(data){
-            if(data.status == 'success'){
-              init();
-            }
+          if(data.status == 'success'){
+            init();
+          }
         });
+      }
+      
+      function logout(){
+        auth.logout();
+        $state.go("login");
       }
       
     }

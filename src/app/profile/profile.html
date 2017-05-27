@@ -1,31 +1,31 @@
 <navbar bloctitle="'Informations Utilisateur'" subtitle="'Lorem ipsum dolor sit amet ut primum!'"></navbar>
 
-<div>
-	<section class="box">
+<div class="form-container profile">
+	<section class="box form-box">
 		<h3 class="box-subtitle">Vous pouvez modifier vos informations</h3>
 
 		<form name="registerForm" class="row">
 			<!-- champ nom -->
 			<div class="box-field col-sm-6">
 				<label>Nom</label>
-				<input required ng-model="user.lastname">
+				<input required ng-model="profile.user.lastname">
 			</div>
 			<!-- champ prenom -->
 			<div class="box-field col-sm-6">
 				<label>Prénom</label>
-				<input required ng-model="user.name">
+				<input required ng-model="profile.user.name">
 			</div>
 
 			<!-- champ bio -->
 			<div class="box-field col-sm-12">
 				<label>Bio</label>
-				<textarea ng-model="user.biography"></textarea>
+				<textarea ng-model="profile.user.biography"></textarea>
 			</div>
 
 			<!-- champ email (login) -->
 			<div class="box-field col-sm-12">
 				<label>Adresse e-mail</label>
-				<input type="email" name="email" ng-pattern="/^.+@.+\..+$/" required ng-model="user.email">
+				<input type="email" name="email" ng-pattern="/^.+@.+\..+$/" required ng-model="profile.user.email">
 				<div ng-messages="registerForm.email.$error" role="alert">
 					<p ng-message-exp="['pattern']">E-mail invalide</p>
 				</div>
@@ -34,18 +34,25 @@
 			<!-- champ mdp -->
 			<div class="box-field col-sm-12">
 				<label>Nouveau mot de passe</label>
-				<input type="password" required ng-model="newPassword">
+				<input type="password" ng-model="profile.user.newPassword" name="newPassword">
 			</div>
 
 			<!-- champ mdp -->
 			<div class="box-field col-sm-12">
 				<label>Confirmation mot de passe</label>
-				<input type="password" required ng-model="confirmNewPassword">
+				<input  
+				compare-to="profile.user.newPassword"
+				type="password"
+				ng-model="profile.user.confirmNewPassword"
+				name="confirmNewPassword">
+				
+				<div ng-show="registerForm.confirmNewPassword.$error.compareTo">
+					Les mots de passe doivent correspondrent
+				</div>
 			</div>
-
-			<button ng-click="ProfileCtrl.saveChanges()" class="btn btn-primary box-btn">Enregistrer les modifications</button>
+			
+			<button ng-click="profile.saveChanges(registerForm)" class="btn btn-primary box-btn">Enregistrer</button>
 		</form>
+
 	</section>
 </div>
-
-
