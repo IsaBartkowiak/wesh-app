@@ -1,0 +1,66 @@
+<navbar bloctitle="'Modifier l\'évenement'" subtitle="edit.event.title"></navbar>
+
+<div class="form-container addevent"  id="addevent">
+  <div class="box form-box">
+    <form name="editEventForm" class="row">
+      <!-- ****** INFO ************************** -->
+      <h3 class="box-title">Infos</h3>
+      <!-- champ titre -->
+      <div class="box-field col-sm-6">
+        <label>Titre</label>
+        <input required ng-model="edit.event.title">
+      </div>
+      <!-- champ lieu -->
+      <div class="box-field col-sm-6">
+        <label>Lieu</label>
+        <input required ng-model="edit.event.place">
+      </div>
+      
+      <!-- champ description -->
+      <div class="box-field col-sm-12">
+        <label>Description</label>
+        <textarea ng-model="edit.event.description"  rows="5"></textarea>
+      </div>
+
+      <!-- ****** CRENEAUX ************************** -->
+      <h3 class="box-title">Créneaux</h3>
+      
+      <div class="col-sm-12">
+        <label>Date(s)</label>
+      </div>      
+      
+      <!-- 1er champ datepicker -->
+      <div class="addevent-slot">
+       <div class="box-field col-xs-10">
+        <i class="icon-calendar input-icon"></i>
+        <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="edit.dates[0].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
+      </div>
+      
+      <div class="col-xs-2 addevent-slot-btn">
+       <span class="btn btn-plus" ng-click="edit.addField()">
+         <i class="icon-plus"></i>
+       </span>
+     </div>
+   </div>
+   
+   <!-- repeater -->
+   <div class="addevent-slot" ng-repeat="field in edit.field">
+    <!-- bouton input -->
+    <div class="box-field col-xs-10">
+      <i class="icon-calendar input-icon"></i>
+      <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="" ng-model="edit.dates[field.id].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
+    </div>
+    <!-- bouton supprimer -->
+    <div class="col-xs-2 addevent-slot-btn">
+     <span class="btn btn-plus" ng-click="edit.removeField(field)">
+       <i class="icon-trash"></i>
+     </span>
+   </div>
+ </div> 
+
+ <!-- bouton control -->
+ <button ng-click="edit.deleteEvent($event)" class="btn btn-primary box-btn">Supprimer</button>
+ <button ng-click="edit.updateEvent(editEventForm)" class="btn btn-primary box-btn">Enregistrer</button>
+</form>
+</div>
+</div>

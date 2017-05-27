@@ -4,19 +4,31 @@ subtitle="'Lorem ipsum dolor sit amet ut primum caetere doloris !'">
 </navbar>
 
 <nav class="tab">
-  <span class="tab-link" ng-class="{'active': main.activeTab == 'all'}" ng-click="main.showAll()">Tous</span>
-  <span class="tab-link" ng-class="{'active': main.activeTab == 'user'}" ng-click="main.showUser()">Mes évènements</span>
-  <span class="tab-link" ng-class="{'active': main.activeTab == 'done'}" ng-click="main.showDone()">Terminé</span>
+  <span class="tab-link"
+  ng-class="{'active': main.activeTab == 'all'}"
+  ng-click="main.showAll()">Tous</span>
+  <span
+  class="tab-link"
+  ng-class="{'active': main.activeTab == 'user'}"
+  ng-click="main.showUser()">Mes évènements</span>
+  <span 
+  class="tab-link"
+  ng-class="{'active': main.activeTab == 'participation'}"
+  ng-click="main.showParticipations()">Mes participations</span>
+  <span class="tab-link"
+  ng-class="{'active': main.activeTab == 'done'}"
+  ng-click="main.showDone()">Terminé</span>
 </nav>
 
 <section class="eventlist">
   <div class="row">   
-    <div ng-repeat="event in main.events | filter: main.filter" class="col-md-4">
-      
-      <a href="/evenement/{{event.id}}" class="eventlist-content">
+    <div ng-if="main.activeTab != 'participation'" ng-repeat="event in main.events | filter:main.filter | orderBy: '-updatedAt'" class="col-md-4">   
+      <a ng-href="/evenement/{{event.id}}" class="eventlist-content" ng-class="{closed: event.closed}">
         <span class="eventlist-imgwrapper">
           <img src="https://media.timeout.com/images/101705313/image.jpg" alt="" class="eventlist-img">
-          <p class="eventlist-slot">{{event.slots.length}} créneaux disponibles</p>
+          <p class="eventlist-slot" ng-if="!event.closed">{{event.slots.length}} créneaux disponibles</p>
+          <p class="eventlist-slot" ng-if="event.closed">Evènement cloturé</p>
+
         </span>
         <ul class="eventlist-info list-inline">
           <li class="eventlist-place">
@@ -31,7 +43,40 @@ subtitle="'Lorem ipsum dolor sit amet ut primum caetere doloris !'">
           <p class="eventlist-description">{{event.description}}</p>
         </span>
       </a>
-
+      <div class="eventlist-control" ng-if="event.owner.id == currentUser.id && !event.closed">
+        <a class="eventlist-edit"ng-href="/evenement/modifier/{{event.id}}" class="btn btn-primary">Modifier</a>
+        <a class="eventlist-close" ng-href="/evenement/cloturer/{{event.id}}" class="btn btn-primary">Clôturer</a>
+      </div>
+    </div>
+    
+    <!-- si onglet participation -->
+    <div 
+    ng-if="main.activeTab == 'participation'"
+    ng-repeat="event in copyEvent=(main.events | myParticipation | orderBy: '-updatedAt')"
+    class="col-md-4">
+    <a ng-href="/evenement/{{event.id}}" class="eventlist-content">
+      <span class="eventlist-imgwrapper">
+        <img src="https://media.timeout.com/images/101705313/image.jpg" alt="" class="eventlist-img">
+        <p class="eventlist-slot">{{event.slots.length}} créneaux disponibles</p>
+      </span>
+      <ul class="eventlist-info list-inline">
+        <li class="eventlist-place">
+          <i class="icon-marker eventlist-place-icon"></i>
+          {{event.place}}
+        </li>
+        <!-- <li class="eventlist-slot">{{event.slots.length}} créneaux</li> -->
+      </ul>
+      <span class="eventlist-text">
+        <h2 class="eventlist-title">{{event.title}}</h2>
+        <p class="eventlist-author">Crée par {{event.owner.name}} {{event.owner.lastname}}</p>
+        <p class="eventlist-description">{{event.description}}</p>
+      </span>
+    </a>
+    <div class="eventlist-control" ng-if="event.owner.id == currentUser.id && !event.closed">
+      <a class="eventlist-edit"ng-href="/evenement/modifier/{{event.id}}" class="btn btn-primary">Modifier</a>
+      <a class="eventlist-close" ng-href="/evenement/cloturer/{{event.id}}" class="btn btn-primary">Clôturer</a>
     </div>
   </div>
+  <p class="text-center" ng-show="!copyEvent.length && main.activeTab == 'participation'">Vous n'avez pas encore de participations enregistrées</p>
+</div>
 </section>

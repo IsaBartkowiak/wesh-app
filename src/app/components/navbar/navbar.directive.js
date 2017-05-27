@@ -12,8 +12,8 @@
       templateUrl: 'app/components/navbar/navbar.html',
       controller: NavbarController,
       scope: {
-      bloctitle: '=',
-      subtitle: '='
+        bloctitle: '=',
+        subtitle: '='
       },
       controllerAs: 'nav',
       bindToController: true
@@ -22,10 +22,37 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController($rootScope, $state, auth) {
+    function NavbarController($rootScope, $state, notification, auth) {
       var vm = this;
       vm.currentState = $state.current.name;
       vm.user = $rootScope.currentUser;
+      vm.notifications = [];
+      vm.notificationsCount = 0;
+      vm.readNotif = readNotif;
+      vm.notifPanel = false;
+      
+      init();
+
+      function init() {
+        vm.notificationsCount = 0;
+        notification.get({id: vm.user.id}, function(data){
+          vm.notifications = data;
+          angular.forEach(vm.notifications, function(value, key) {
+            if(value.seen == false){
+              vm.notificationsCount++;
+            }
+          });
+        });
+      }
+      
+      function readNotif(id){
+        notification.read({id: id}, {}, function(data){
+            if(data.status == 'success'){
+              init();
+            }
+        });
+      }
+      
     }
   }
 

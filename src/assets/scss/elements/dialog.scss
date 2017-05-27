@@ -1,0 +1,18 @@
+#single .md-dialog-container, #closevent .md-dialog-container{
+	.md-default-theme{
+		    border-radius: 3px;
+		    text-align: center;
+	}
+	md-dialog-actions{
+		text-align: center;
+		    display: inline-block;
+	}
+	button{
+		color:$pink;
+	}
+	.md-button.md-primary{
+		color:$pink;
+		font-family: 'gt-medium';
+		margin-bottom: 15px;
+	}
+}

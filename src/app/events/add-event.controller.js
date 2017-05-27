@@ -6,61 +6,49 @@
   .controller('EventController', EventController);
 
   /** @ngInject */
-  function EventController($rootScope, toastr, event, slot) {
+  function EventController($rootScope, $state, $timeout, toastr, event, slot) {
     var vm = this;
     $rootScope.context = "add";
 
     vm.event = {};
     vm.event.UserId = $rootScope.currentUser.id;
     vm.field = [];
-    vm.fieldCount = 0;
+    vm.fieldCount = 1;
     vm.dates = {};
-    vm.geocode = "";
-    vm.getNumber = getNumber;
     vm.addField = addField;
     vm.removeField = removeField;
     vm.addEvent = addEvent;
-    
-    init();
 
-    function init() {
-      event.getAll(function(data){
-        vm.events = data;
-      });
-    }
-
-    
+    //ajoute un champ date (clic du +)
     function addField() {
       var date = {};
-      date.id = Math.floor((Math.random() * 100) + 2);
+      date.id = vm.fieldCount;
       if(vm.field.length < 5){
         vm.field.push(date);
         vm.fieldCount++;
       }
     }
+    
+    //retire le champ date cliqué
     function removeField(field) {
       var index = vm.field.indexOf(field);
       vm.field.splice(index, 1);
       delete vm.dates[field.id];
     }
     
-    function getNumber(num) {
-      return new Array(num);   
-    }
-    
+    //A l'enregistrement
     function addEvent(form){
       if(form.$valid){
         event.create(vm.event, function(data){
           if(data.status == "success"){
-            angular.forEach(vm.dates, function(value, key) {
-              slot.create({id:data.id}, value, function(res) {
-                console.log(res);
-                if(res.status == "success"){
-                  console.log('ok');
-                }
-              });
+            angular.forEach(vm.dates, function(value) {
+              slot.create({id:data.id}, value);
             });
-            toastr.success('Votre évènement a bien été crée', 'Succès');
+            $timeout(function(){
+              toastr.success('Votre évènement a bien été crée', 'Succès');
+              $state.go("singleevent", {"id":data.id});
+            }, 500);
+
           }else{
             toastr.error('Une erreur est survenue', 'Oups');
           }

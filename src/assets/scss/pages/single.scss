@@ -1,0 +1,26 @@
+.single{
+	&-place, &-author{
+		font-family: 'gt';
+		display: inline-block;
+		vertical-align: middle;
+		color: $light-grey;
+		padding: 0 15px;
+		i{
+			margin-right: 5px;
+		}
+	}
+	&-author{
+		border-left: 1px solid lighten($light-grey, 13%);
+		font-weight: lighter;
+		i{
+			font-size: 12px;
+		}
+	}
+	&-closed{
+		font-family: 'gt';
+		color: $pink;
+		font-weight: 400;
+		letter-spacing: 0;
+		margin-top: 0;
+	}
+}

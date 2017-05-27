@@ -1,0 +1,22 @@
+
+
+input[type="checkbox"]{
+	width: 22px;
+	height:22px;
+	appearance: none;
+	border: 2px solid darken($border-grey, 10%);
+	border-radius:3px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin: 0;
+	&:checked{
+		background-color: $pink;
+		border-color: $pink;
+		background-image: url('/assets/images/checkbox.png');
+		background-size: 16px;
+		background-position: center center;
+	}
+	&:focus{
+		outline: none;
+	}
+}

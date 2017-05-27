@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING
       },
     description: DataTypes.STRING,
-    place: DataTypes.STRING
+    place: DataTypes.STRING,
+    closed: DataTypes.BOOLEAN
   }, {
     freezeTableName: true,
     classMethods: {

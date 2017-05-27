@@ -12,6 +12,7 @@ module.exports = {
       },
       SlotId: {
         allowNull: false,
+        onDelete: "CASCADE",
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {

@@ -6,7 +6,7 @@
   .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($rootScope, $timeout, toastr, event, moment, users, participations) {
+  function MainController($rootScope, $timeout, $scope, toastr, event, moment, users, participations) {
     var vm = this;
     $rootScope.bodyClass = "app";
     $rootScope.context = "main";
@@ -15,13 +15,13 @@
     vm.data = moment;
     vm.filter = {};
     vm.activeTab = "all";
-    vm.addUserParticipation = addUserParticipation;
     vm.containsObject = containsObject;
     vm.removeUserParticipation = removeUserParticipation;
     vm.getIndexOf = getIndexOf;
     vm.showAll = showAll;
     vm.showUser = showUser;
     vm.showDone = showDone;
+    vm.showParticipations = showParticipations;
 
     activate();
 
@@ -31,21 +31,6 @@
       });
     }
     
-    function addUserParticipation(event, slot){
-      if(!vm.containsObject($rootScope.currentUser, slot.users)){
-        var obj = {};
-        obj.slotId = slot.id;
-        obj.userId = $rootScope.currentUser.id;
-        participations.create({id:event.id}, obj, function(res) {
-          if(res.status == "success"){
-            slot.users.push($rootScope.currentUser);
-            toastr.success('Participation enregistrée', 'Succès');
-          }
-        });
-      }else{
-        vm.removeUserParticipation(slot);
-      } 
-    }
     
     function removeUserParticipation(slot){
       participations.delete({id:slot.id, userid: $rootScope.currentUser.id}, function(res) {
@@ -58,7 +43,7 @@
     }
     
     function showAll(){
-      vm.filter = {};
+      vm.filter = '';
       vm.activeTab = "all";
     }
     
@@ -68,12 +53,15 @@
     }
     
     function showDone(){
-      vm.filter = {slots:{chosen:true}};
+      vm.filter = {closed:true};
       vm.activeTab = "done";
     }
     
-    
-    
+    function showParticipations(){
+      vm.filter = "main.myParticipation()";
+      vm.activeTab = "participation";
+    }
+        
     function containsObject(obj, array) {
       for (var i = 0; i < array.length; i++) {
         if (array[i].id === obj.id) {

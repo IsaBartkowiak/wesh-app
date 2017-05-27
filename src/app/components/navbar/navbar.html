@@ -7,14 +7,31 @@
     </nav>
   </div>
   <ul class="header-user list-inline">
-    <li class="header-user-alert"></li>
-	  <li class="header-user-profile"><a ng-href="/profile/">{{nav.user.name}}</a></li>
+    <li class="header-user-alert">
+    <i class="icon icon-notifications_none header-notif-btn" ng-click="nav.notifPanel = !nav.notifPanel" ng-class="{active: nav.notifPanel}">
+        <span class="header-notif-count" ng-if="nav.notificationsCount > 0">{{nav.notificationsCount}}</span>
+      </i>
+      <div class="header-notif" ng-show="nav.notifPanel">
+        <p class="header-notif-title">Notifications</p>
+        <div class="header-notif-content">
+          <div class="header-notif-el" ng-repeat="notif in nav.notifications | orderBy:'-createdAt'" ng-class="{new: !notif.seen}">
+            <p class="header-notif-txt">{{notif.content}}</p>
+            <p class="header-notif-date">{{notif.createdAt | relativeDate}}</p>
+            <span ng-if="!notif.seen" ng-click="nav.readNotif(notif.id)" class="header-notif-read">OK</span>
+          </div>
+          <div class="header-notif-el" ng-if="nav.notifications.length == 0">
+            <p class="header-notif-txt">Il n'y pas encore de notifications</p>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="header-user-profile"><a ng-href="/profile/">{{nav.user.name}}</a></li>
   </ul>
 
   <div class="header-text">
     <h1 class="header-title">{{nav.bloctitle}}</h1>
     <p class="header-subtitle">{{nav.subtitle}}</p>
-    <a class="header-add" ng-if="nav.currentState != 'addevent'" ng-href="/ajouter-evenement/"><i class="icon-plus"></i></a>
+    <a class="header-add" ng-if="nav.currentState == 'home'" ng-href="/ajouter-evenement/"><i class="icon-plus"></i></a>
   </div>
 
 </header>

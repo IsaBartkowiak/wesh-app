@@ -18,13 +18,13 @@
 		color: $text;
 		transition: all .3s ease;
 		box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.07);
-		&:hover{
+		&:hover, &.closed{
 			text-decoration: none;
 			box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
 			color: $text;
 			img{
 				transform: scale(1);
-				opacity: 0.1;
+				opacity: 0.3;
 			}
 			.eventlist-slot{
 				opacity: 1;
@@ -52,6 +52,7 @@
 	&-text{
 		display: inline-block;
 		padding: 0 30px;
+		min-height: 180px;
 	}
 	&-slot{
 		position: absolute;
@@ -89,6 +90,41 @@
 	&-description{
 		text-align: left;
 		font-family: 'gt';
-		transform-origin: center;		
+		transform-origin: center;
+		min-height: 60px;	
+	}
+	&-control{
+		position: absolute;
+		bottom: 60px;
+		right: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		text-align: center;
+	}
+	&-edit, &-close{
+		font-family: 'Karla';
+		font-weight: 700;
+		padding: 8px 15px;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		transition: all .2s ease;
+		background-color: $pink;
+		text-transform: uppercase;
+		color: white;
+		&:hover, &:focus{
+			text-decoration: none;
+			color:white;
+			background-color: darken($pink, 6%);
+		}
+	}
+	&-edit{
+		
+	}
+	&-close{
+		background-color: #c71642;
+		&:hover, &:focus{
+			background-color: darken(#c71642, 6%);
+		}
 	}
 }

@@ -1,4 +1,4 @@
-<navbar bloctitle="'Ajouter un event'" subtitle="'Lorem ipsum dolor sit amet ut primum!'"></navbar>
+<navbar bloctitle="'Ajouter un évènement'" subtitle="'Lorem ipsum dolor sit amet ut primum!'"></navbar>
 
 <div class="form-container addevent">
   <div class="box form-box">
@@ -33,7 +33,7 @@
       <div class="addevent-slot">
        <div class="box-field col-xs-10">
           <i class="icon-calendar input-icon"></i>
-          <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="EventCtrl.dates[0].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
+          <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" show-todays-date="true" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="EventCtrl.dates[0].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
         </div>
         
          <div class="col-xs-2 addevent-slot-btn">
@@ -42,11 +42,6 @@
                </span>
          </div>
          </div>
-         
-         
-      <gmap-picker model="EventCtrl.geocode"></gmap-picker>
-      
-      {{EventCtrl.geocode}}
       
       <!-- repeater -->
       <div class="addevent-slot" ng-repeat="field in EventCtrl.field track by $index | limitTo:4">

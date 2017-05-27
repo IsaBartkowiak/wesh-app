@@ -16,8 +16,9 @@
     //Set les options des toasts
     toastrConfig.timeOut = 3000;
     toastrConfig.showDuration= 1000;
-    toastrConfig.positionClass = 'toast-top-right';
+    toastrConfig.positionClass = 'toast-bottom-right';
     toastrConfig.newestOnTop =  true;
+
     
     //Set les options des input calendrier
     // $mdDateLocaleProvider.months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];

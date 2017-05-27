@@ -1,27 +1,97 @@
 <navbar bloctitle="single.event.title" subtitle="single.event.description"></navbar>
 
 
-<div class="form-container addevent">
+<div class="form-container single" id="single">
 	
 	<div class="box form-box">
-		<form name="addEventForm" class="row">
+		<p class="single-place">
+			<i class="icon-marker eventlist-place-icon"></i>
+			{{single.event.place}}
+		</p>
+				
+		<p class="single-author">
+			<i class="icon-head"></i>
+			{{single.event.owner.name}} {{single.event.owner.lastname}}</p>
+			<!-- Si l'evenement est cloturé -->
+			<div class="slots list-inline" ng-if="single.event.closed">
+				<h3 class="box-title">Créneau choisi</h3>
+				<p class="single-closed">Evènement cloturé</p>
+				<li 
+				ng-repeat="slot in single.event.slots | filter: {choosen:true} track by $index " 
+				class="slots-item">			
+				<div class="slots-date">
+					<p class="slots-day">{{slot.date | cleanDate: 'D'}}</p>
+					<p class="slots-month">{{slot.date | cleanDate: 'MMMM' | limitTo:3}}</p>
+					<p class="slots-year">{{slot.date | cleanDate: 'Y'}}</p>
+				</div>
+				
+				<div class="slots-infos">
+					<div class="slots-infos-content">
+						<p class="slots-hour">
+							<i class="icon-clock"></i>
+							{{slot.date | cleanDate: 'HH:mm'}}
+						</p>		
+						<p class="slots-count">
+							{{slot.users.length}} personne(s)
+						</p>
+						<div class="slots-users">
+							<div class="slots-users-item" ng-repeat="user in slot.users">
+								<img class="slots-users-img" src="/assets/images/user.jpg" alt="{{user.name}}">
+								<p class="slots-users-name">{{user.name}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</div>
+		
+		<!-- S'il n'est pas cloturé -->
+		<form name="closeEventForm" class="row" ng-if="!single.event.closed">
 			
 			<h3 class="box-title">Créneaux proposés</h3>
 			
-			
-			<div class="creaneau" ng-if="single.event.slots.length > 0">
-				<ul class="list-group list-group-flush">
-					<li ng-repeat="slot in single.event.slots" class="list-group-item" 
-					ng-click="main.addUserParticipation(event, slot)"
-					ng-class="{'active': main.containsObject(currentUser, slot.users)}">
-					Le {{slot.date | cleanDate: 'DD MMMM YYYY'}} à {{slot.date | cleanDate: 'kk'}} heures
-					<span style="padding: 0 10px" ng-repeat="user in slot.users">{{user.name}}</span>
-				</li>
-			</ul>  
-		</div>
+			<ul class="slots list-inline" ng-if="single.event.slots.length > 0">
+				<li 
+				ng-repeat="slot in single.event.slots | orderBy: '-date' track by $index" 
+				class="slots-item" 
+				ng-class="{'active': single.containsObject(currentUser, slot.users)}">
+				
+				<div class="slots-date">
+					<p class="slots-day">{{slot.date | cleanDate: 'D'}}</p>
+					<p class="slots-month">{{slot.date | cleanDate: 'MMMM' | limitTo:3}}</p>
+					<p class="slots-year">{{slot.date | cleanDate: 'Y'}}</p>
+				</div>
+				
+				<div class="slots-infos">
+					<div class="slots-infos-content">
+						<p class="slots-hour">
+							<i class="icon-clock"></i>
+							{{slot.date | cleanDate: 'HH:mm'}}
+						</p>		
+						<p class="slots-count">
+							{{slot.users.length}} personne(s)
+						</p>
+						<div class="slots-users">
+							<div class="slots-users-item" ng-repeat="user in slot.users">
+								<img class="slots-users-img" src="/assets/images/user.jpg" alt="{{user.name}}">
+								<p class="slots-users-name">{{user.name}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="slots-checkbox">
+					<input type="checkbox" 
+					ng-checked="single.containsObject(currentUser, slot.users)"
+					ng-click="single.addUserParticipation(slot)">
+				</div>
+			</li>
+		</ul>  
+	</form>
 
-			<!-- bouton validation -->
-			<button ng-click="EventCtrl.addEvent(addEventForm)" class="btn btn-primary box-btn">Valider</button>
-		</form>
+	<div class="single-control" ng-if="single.event.owner.id == currentUser.id && !event.closed">
+		<a ng-if="!single.event.closed" class="single-edit btn btn-primary box-btn" ng-href="/evenement/modifier/{{single.event.id}}">Modifier</a>
+		<a class="single-del btn btn-primary box-btn" ng-click="single.deleteEvent()">supprimer</a>
 	</div>
+</div>
 </div>

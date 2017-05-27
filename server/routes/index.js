@@ -5,9 +5,9 @@ var passport = require('passport');
 
 var router = express.Router();
 
-/************
+/*****************************************************************************
 * AUTHENTIFICATION
-************/
+/*****************************************************************************/
 
 //login
 router.post('/api/users/login/', function(req,res,next){
@@ -45,9 +45,9 @@ router.get('/api/users/logout/', function(req, res) {
 });
 
 
-/************
+/*****************************************************************************
 * USERS
-************/
+/*****************************************************************************/
 
 //Création
 router.post('/api/users/', function(req, res) {
@@ -125,9 +125,9 @@ router.put('/api/users/:id',function (req,res) {
 });
 
 
-/************
+/*****************************************************************************
 * EVENTS
-************/
+/*****************************************************************************/
 
 //POST
 router.post('/api/events/', function(req, res) {
@@ -170,8 +170,34 @@ router.get('/api/events/:id',  function(req, res) {
   res.json(event);
 })
 .catch(function (err) {
-  console.log(err);
   res.status(500).send({"status": "error", "description": err});
+});
+});
+
+
+//UPDATE
+router.put('/api/events/:id',function (req,res) {
+  models.Event.find({
+    where:{
+      id: req.params.id,
+    }
+  }).then(function (event) {
+    if (event){
+      event.updateAttributes({
+       title: req.body.title,
+       description:  req.body.description,
+       place: req.body.place
+     }).then(function (event){
+      models.Occur.destroy({
+        where: {
+          EventId : event.id
+        }
+      });
+      res.status(200).send({"status": "success", "id": event.id});
+    })
+   }
+ }).catch(function (err) {
+  res.status(500).send({"status":"error"});
 });
 });
 
@@ -202,12 +228,39 @@ router.get('/api/events/',  function(req, res) {
 });
 });
 
+//suppression
+router.delete('/api/events/:id', function(req, res) {
+  
+  models.Participate.destroy({
+    where:{
+      EventId: parseInt(req.params.id)
+    }
+  });
+  
+  models.Occur.destroy({
+    where:{
+      EventId: parseInt(req.params.id)
+    }
+  }).then(function(nb){
+    models.Event.destroy({
+     where:{
+      id: parseInt(req.params.id)
+    }
+  }).then(function(nb){
+    res.status(200).send({"status": "success"});
+  });
+})
+  .catch(function (err) {
+    res.status(500).send({"status": "error"});
+  });
+});
 
-/************
+
+/*****************************************************************************
 * CRENEAU
-************/
+/*****************************************************************************/
 
-//POST
+//création
 router.post('/api/events/:id/slots/', function(req, res) {
   models.Slot.create({
     date : req.body.date,
@@ -230,11 +283,11 @@ router.post('/api/events/:id/slots/', function(req, res) {
 });
 
 
-/************
-* CRENEAU
-************/
+/*****************************************************************************
+* PARTICIPATIONS
+/*****************************************************************************/
 
-//POST
+//création
 router.post('/api/events/:id/participations/', function(req, res) {
   models.Participate.create({
     EventId : parseInt(req.params.id),
@@ -249,7 +302,7 @@ router.post('/api/events/:id/participations/', function(req, res) {
   });
 });
 
-//delete
+//suppression
 router.delete('/api/participations/:id/user/:userid', function(req, res) {
   models.Participate.destroy({
     where: {
@@ -265,8 +318,103 @@ router.delete('/api/participations/:id/user/:userid', function(req, res) {
 });
 
 
+/*****************************************************************************
+* CLOTURE
+/*****************************************************************************/
+//Quand on choisit un créneau pour terminer l'évènement
+router.put('/api/events/:id/close/',function (req,res) {
+  console.log(req.body);
+  models.Event.find({
+    where:{
+      id: req.params.id,
+    }
+  })
+  .then(function (event) {
+    event.updateAttributes({
+     closed: true
+   });
+     models.Slot.find({
+    where:{
+      id: parseInt(req.body.id),
+    }
+  })
+  .then(function (slot) {
+    slot.updateAttributes({
+     choosen: true
+   });
+      res.status(200).send({"status": "success"});
+  })
+  .catch(function (err) {
+    res.status(500).send({"status":"error"});
+  });
+  
+  })
+  .catch(function (err) {
+    res.status(500).send({"status":"error"});
+  });
+});
+
+
+/*****************************************************************************
+* NOTIFICATIONS
+/*****************************************************************************/
+//création
+router.post('/api/notifications/', function(req, res) {
+  console.log('test');
+  models.Notification.create({
+    content : req.body.content,
+    type: req.body.type,
+    seen: false,
+    UserId : req.body.UserId
+  })
+  .then(function(notif){
+    res.status(200).send({"status": "success"});
+  })
+  .catch(function (err) {
+    console.log(err);
+    res.status(500).send({"status": "error"});
+  });
+});
+
+//notifications d'un utilisateur
+router.get('/api/users/:id/notifications', function(req, res) {
+  models.Notification.findAll({
+    where: {
+      UserId: req.params.id,
+    }
+  }).then(function(notif) {
+    res.status(200).json(notif);
+  })
+  .catch(function (err) {
+    res.status(500).send({"status": "error"});
+  });
+});
+
+//lecture
+router.put('/api/notifications/:id', function(req, res) {
+  models.Notification.find({
+    where:{
+      id: req.params.id,
+    }
+  })
+  .then(function (notif) {
+    notif.updateAttributes({
+     seen: true
+   });
+    res.status(200).send({"status":"success"});
+  })
+  .catch(function (err) {
+    console.log(err);
+    res.status(500).send({"status":"error"});
+  });
+  
+});
+
+/*****************************************************************************
+* DEFAULT
+/*****************************************************************************/
 router.get('/*', function(req, res, next) {
- res.send('API events');
+ res.send('Wesh API');
 });
 
 

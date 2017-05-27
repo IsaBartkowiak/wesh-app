@@ -19,8 +19,25 @@
       //      $state.go('login');
       //   }
       // });
-		$rootScope.currentUser = {"id":3,"email":"pierrotl15@gmail.com","name":"Pierre","lastname":"Liaubet","biography":"Mangeur de PORC","createdAt":"2017-03-07T12:28:33.488Z","updatedAt":"2017-03-07T12:28:33.488Z"};
-
+      $rootScope.currentUser = {
+        "id": 3,
+        "email": "isadora",
+        "name": "Isadora2",
+        "lastname": "Bartkowiak",
+        "biography": "dsjmosdv de la merde",
+        "createdAt": "2017-02-04T23:25:34.882Z",
+        "updatedAt": "2017-02-04T23:25:34.882Z"
+      };
+      
+      // $rootScope.currentUser = {
+      //   "id": 26,
+      //   "email": "pierre@mail.com",
+      //   "name": "Pierre26",
+      //   "lastname": "Bartkowiak",
+      //   "biography": "dsjmosdv de la merde",
+      //   "createdAt": "2017-02-04T23:25:34.882Z",
+      //   "updatedAt": "2017-02-04T23:25:34.882Z"
+      // };
     });
   }
 

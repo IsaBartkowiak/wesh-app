@@ -18,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         User.hasMany(models.Event, {as: 'managed_events'});
+        User.hasMany(models.Notification, {as: 'notif'});
         User.belongsToMany(models.Event, {through: 'Participate', as: "participated_events"});
       }
     }

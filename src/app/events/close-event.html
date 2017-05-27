@@ -1,0 +1,61 @@
+<navbar bloctitle="'Clôturer '+close.event.title" subtitle="'Choisissez le créneau préféré parmi la liste'"></navbar>
+
+
+<div class="form-container closevent" id="closevent">
+	
+	<div class="box form-box">
+
+		<form name="closeEventForm" class="row">
+			
+			<h3 class="box-title">Créneaux disponibles</h3>
+			
+							<ul class="slots list-inline" ng-if="close.event.slots.length > 0">
+					<li ng-repeat="slot in close.event.slots | orderBy:'-users' track by $index " class="slots-item" 		
+					ng-class="{'active': close.containsObject(currentUser, slot.users)}">
+					
+					<div class="slots-date">
+						<p class="slots-day">{{slot.date | cleanDate: 'D'}}</p>
+						<p class="slots-month">{{slot.date | cleanDate: 'MMMM' | limitTo:3}}</p>
+						<p class="slots-year">{{slot.date | cleanDate: 'Y'}}</p>
+					</div>
+					
+					<div class="slots-infos">
+						<div class="slots-infos-content">
+							<p class="slots-hour">
+								<i class="icon-clock"></i>
+								{{slot.date | cleanDate: 'kk'}}h
+							</p>		
+							<p class="slots-count">
+								{{slot.users.length}} personne(s)
+							</p>
+							<div class="slots-users">
+								<div class="slots-users-item" ng-repeat="user in slot.users">
+									<img class="slots-users-img" src="/assets/images/user.jpg" alt="{{user.name}}">
+									<p class="slots-users-name">{{user.name}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="slots-checkbox">
+						<input type="checkbox" 
+						ng-init="$first && close.recommandation ? close.selection[slot.id] = true : ''"
+						ng-click=""
+						ng-change="close.changeSelection(slot.id)"
+						ng-model="close.selection[slot.id]">
+					</div>
+					
+					<div ng-if="$first && close.recommandation" ng-show="close.showHelp" class="slots-recommandation">
+						<p>Nous vous recommandons ce créneau pour votre évènement</p>
+						<i class="icon-cross slots-recommandation-close" ng-click="close.showHelp = !close.showHelp"></i>
+					</div>
+				</li>
+			</ul>  
+			
+
+		<!-- bouton validation -->
+		<button ng-click="close.closeEvent($event)" class="btn btn-primary box-btn">Valider</button>
+	</form>
+</div>
+</div>
