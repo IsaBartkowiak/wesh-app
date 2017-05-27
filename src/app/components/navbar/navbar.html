@@ -1,14 +1,17 @@
 <header class="header">
   <div class="header-right">
-    <img class="logo header-right-logo" src="/assets/images/logo-white.png" alt="Logo Wesh">
+    <a ng-href="/" class="header-home">
+      <img class="logo header-right-logo" src="/assets/images/logo-white.png" alt="Logo Wesh">
+    </a>
     <nav class="header-nav">
-      <a ng-href="/" ng-class="{ active: nav.currentState == 'home'}">Accueil</a>
+      <a ng-href="/"  ng-class="{ active: nav.currentState == 'home'}">Accueil</a>
       <a ng-href="/ajouter-evenement/" ng-class="{ active: nav.currentState == 'addevent'}">Ajouter event</a>
     </nav>
   </div>
   <ul class="header-user list-inline">
+    <li class="header-user-profile"><a ng-href="/profile/">{{nav.user.name}}</a></li>
     <li class="header-user-alert">
-    <i class="icon icon-notifications_none header-notif-btn" ng-click="nav.notifPanel = !nav.notifPanel" ng-class="{active: nav.notifPanel}">
+      <i class="icon icon-notifications_none header-notif-btn" ng-click="nav.notifPanel = !nav.notifPanel" ng-class="{active: nav.notifPanel}">
         <span class="header-notif-count" ng-if="nav.notificationsCount > 0">{{nav.notificationsCount}}</span>
       </i>
       <div class="header-notif" ng-show="nav.notifPanel">
@@ -25,10 +28,9 @@
         </div>
       </div>
     </li>
-    <li class="header-user-profile"><a ng-href="/profile/">{{nav.user.name}}</a></li>
     
     <li class="header-user-logout">
-          <i class="icon icon-power" ng-click="nav.logout()"></i>
+      <i class="icon icon-power" ng-click="nav.logout()"></i>
     </li>
     
   </ul>

@@ -1,11 +1,19 @@
 .eventlist{
 	max-width: 80%;
 	margin: auto;
-	padding: 40px 0;
+	padding: 10px 0 40px 0;
 	&-title{
 		font-family: 'gt-medium';		
 		letter-spacing: 0;
 		font-size: 1.6em;
+	}
+	&-count{
+		font-family: 'gt-medium';		
+		letter-spacing: 0;
+		font-size: 1em;
+		text-align: center;
+		color: #282626;
+		margin-bottom: 20px;
 	}
 	&-content{
 		text-decoration: none;

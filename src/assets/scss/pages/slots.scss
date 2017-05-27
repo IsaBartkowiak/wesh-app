@@ -13,6 +13,9 @@
 		display:inline-block;
 		vertical-align: top;
 		font-size: initial;
+		@media (max-width:600px) {
+			width: 20%;
+		}
 	}
 	&-day{
 		font-family: 'gt-bold';
