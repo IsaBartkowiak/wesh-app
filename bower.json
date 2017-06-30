@@ -1,5 +1,5 @@
 {
-  "name": "Wesh Events",
+  "name": "wesh-events",
   "version": "0.0.0",
   "dependencies": {
     "angular-animate": "~1.5.3",
