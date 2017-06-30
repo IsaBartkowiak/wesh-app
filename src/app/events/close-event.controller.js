@@ -6,7 +6,7 @@
   .controller('CloseEventController', CloseEventController);
 
   /** @ngInject */
-  function CloseEventController($rootScope, $stateParams, $document, $state, $mdDialog, notification, toastr, event) {
+  function CloseEventController($rootScope, $stateParams, $state, $mdDialog, notification, toastr, event) {
     var vm = this;
     vm.event = {};
     vm.selection = {};
@@ -44,7 +44,7 @@
 
       var modal = $mdDialog.confirm()
       .title('Confirmer')
-      .parent(angular.element($document.querySelector('#closevent')))
+      .parent(angular.element(document.querySelector('#closevent')))
       .clickOutsideToClose(true)
       .textContent('Etes-vous sûr de vouloir cloturer cet évènement ?')
       .ariaLabel('confirm')

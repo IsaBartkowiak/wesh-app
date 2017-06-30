@@ -27,7 +27,7 @@ subtitle="'Lorem ipsum dolor sit amet ut primum caetere doloris !'">
     <div 
     ng-if="main.activeTab != 'participation'"
     ng-repeat="event in currentEvent=(main.events | filter:main.filter | orderBy: '-updatedAt')"
-    class="col-md-4">   
+    class="col-md-4">
       <a ng-href="/evenement/{{event.id}}" class="eventlist-content" ng-class="{closed: event.closed}">
         <span class="eventlist-imgwrapper">
           <img src="https://media.timeout.com/images/101705313/image.jpg" alt="" class="eventlist-img">
@@ -49,7 +49,7 @@ subtitle="'Lorem ipsum dolor sit amet ut primum caetere doloris !'">
         </span>
       </a>
       <div class="eventlist-control" ng-if="event.owner.id == currentUser.id && !event.closed">
-        <a class="eventlist-edit"ng-href="/evenement/modifier/{{event.id}}" class="btn btn-primary">Modifier</a>
+        <a class="eventlist-edit" ng-href="/evenement/modifier/{{event.id}}" class="btn btn-primary">Modifier</a>
         <a class="eventlist-close" ng-href="/evenement/cloturer/{{event.id}}" class="btn btn-primary">Clôturer</a>
       </div>
     </div>

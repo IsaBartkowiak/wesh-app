@@ -21,7 +21,7 @@
 				users.update({id: vm.user.id}, vm.user, function(data){
 					console.log(data);
 					if(data.status == 'success'){
-						toastr.success('Votre évènement a bien été modifié', 'Succès');
+						toastr.success('Votre compte a bien été modifié', 'Succès');
 					}else{
 						toastr.error('Une erreur est survenue', 'Oups');	
 					}

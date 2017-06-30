@@ -31,7 +31,6 @@
       });
     }
     
-    
     function removeUserParticipation(slot){
       participations.delete({id:slot.id, userid: $rootScope.currentUser.id}, function(res) {
         if(res.status == "success"){
@@ -48,20 +47,20 @@
     }
     
     function showUser(){
-      vm.filter = {owner:{id:$rootScope.currentUser.id}};
+      vm.filter = {"owner":{"id":$rootScope.currentUser.id}};
       vm.activeTab = "user";
-    }
-    
-    function showDone(){
-      vm.filter = {closed:true};
-      vm.activeTab = "done";
     }
     
     function showParticipations(){
       vm.filter = "main.myParticipation()";
       vm.activeTab = "participation";
     }
-        
+
+    function showDone(){
+      vm.filter = {closed:true};
+      vm.activeTab = "done";
+    }
+    
     function containsObject(obj, array) {
       for (var i = 0; i < array.length; i++) {
         if (array[i].id === obj.id) {

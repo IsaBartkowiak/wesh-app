@@ -15,6 +15,7 @@
     vm.removeField = removeField;
     vm.addField = addField;
     vm.updateEvent = updateEvent;
+    vm.deleteEvent = deleteEvent;
     
     init();
 
@@ -66,6 +67,30 @@
           }
         });
       }
+    }
+    
+     //Suppression
+    function deleteEvent(ev){
+      var confirm = $mdDialog.confirm()
+      .title('Confirmer')
+      .parent(angular.element(document.querySelector('#editevent')))
+      .clickOutsideToClose(true)
+      .textContent('Etes-vous sûr de vouloir supprimer cet évènement ?')
+      .ariaLabel('confirm')
+      .targetEvent(ev)
+      .ok('Oui')
+      .cancel('Annuler');
+
+      $mdDialog.show(confirm).then(function() {
+        event.delete({id: $stateParams.id}, function(data){
+          if(data.status == "success"){
+            toastr.success('Votre évènement a bien été supprimé', 'Succès');
+            $state.go('home');
+          }else{
+            toastr.error('Une erreur est survenue', 'Oups');
+          }
+        });
+      });
     }
     
   }

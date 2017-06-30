@@ -88,10 +88,5 @@
 			</li>
 		</ul>  
 	</form>
-
-	<div class="single-control" ng-if="single.event.owner.id == currentUser.id && !event.closed">
-		<a ng-if="!single.event.closed" class="single-edit btn btn-primary box-btn" ng-href="/evenement/modifier/{{single.event.id}}">Modifier</a>
-		<a class="single-del btn btn-primary box-btn" ng-click="single.deleteEvent()">supprimer</a>
-	</div>
 </div>
 </div>
