@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "isa",
+    "password": "root",
+    "database": "events",
+    "host": "localhost",
+    "port": "5432",
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "username": "hilijzopnmphwp",
+    "password": "685a554700093683147ed3dd66847486b5923c519c247ae8d20c9252f92280f8",
+    "database": "d3crjs5jg491ek",
+    "host": "ec2-54-217-222-254.eu-west-1.compute.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
