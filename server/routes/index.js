@@ -1,5 +1,6 @@
 var express = require('express');
 var models = require('../models/index');
+var path = require('path');
 var passport = require('passport');
 
 
@@ -20,7 +21,7 @@ router.post('/api/users/login/', function(req,res,next){
         if(err){
           res.status(401).json(info);
         }
-          res.json({ status: req.isAuthenticated() });
+        res.json({ status: req.isAuthenticated() });
       });
     }
   })(req, res, next);
@@ -51,6 +52,7 @@ router.get('/api/users/logout/', function(req, res) {
 
 //Création
 router.post('/api/users/', function(req, res) {
+  console.log(req.body);
   models.User.create({
     email : req.body.email,
     password : req.body.password,
@@ -72,8 +74,7 @@ router.post('/api/users/', function(req, res) {
       });
     }
   })(req, res);
-})
-  .catch(function (err) {
+}).catch(function (err) {
     res.status(500).send({"status": "error"});
   });
 });
@@ -112,29 +113,29 @@ router.put('/api/users/:id',function (req,res) {
     }
   }).then(function (user) {
       //Avec changement de mot de passe
-        if (req.body.newPassword != "" && req.body.confirmNewPassword != ""){
-          user.updateAttributes({
-            email : req.body.email,
-            name: req.body.name,
-            lastname:  req.body.lastname,
-            biography: req.body.biography,
-            password: req.body.newPassword
-          });
+      if (req.body.newPassword != "" && req.body.confirmNewPassword != ""){
+        user.updateAttributes({
+          email : req.body.email,
+          name: req.body.name,
+          lastname:  req.body.lastname,
+          biography: req.body.biography,
+          password: req.body.newPassword
+        });
         //sans changement de mdp
-        }else{
-          user.updateAttributes({
-            email : req.body.email,
-            name: req.body.name,
-            lastname:  req.body.lastname,
-            biography: req.body.biography
-          });
-        }
-        res.status(200).send({"status":"success"});
+      }else{
+        user.updateAttributes({
+          email : req.body.email,
+          name: req.body.name,
+          lastname:  req.body.lastname,
+          biography: req.body.biography
+        });
+      }
+      res.status(200).send({"status":"success"});
 
-      }).catch(function (err) {
-        res.status(500).send({"status":"error"});
-      });
+    }).catch(function (err) {
+      res.status(500).send({"status":"error"});
     });
+  });
 
 
 /*****************************************************************************
@@ -152,7 +153,7 @@ router.post('/api/events/', function(req, res) {
     res.status(200).send({"status": "success", "id": event.id});
   })
   .catch(function (err) {
-    res.status(500).send({"status": "error"});
+    res.status(500).send({"status": "error", "description": err});
   });
 });
 
@@ -425,8 +426,8 @@ router.put('/api/notifications/:id', function(req, res) {
 /*****************************************************************************
 * DEFAULT
 /*****************************************************************************/
-router.get('/*', function(req, res, next) {
- res.send('Wesh API');
+router.get('*', function(req, res, next) {
+ res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
 
 

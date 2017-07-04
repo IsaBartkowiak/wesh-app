@@ -36,15 +36,16 @@ var allowCrossDomain = function(req, res, next) {
 // *** static directory *** //
 app.set('views', path.join(__dirname, 'views/'));
 app.use(express.static(path.join(__dirname, '.')));
+app.use(express.static(path.join(__dirname, '../dist')));
 app.use('/bower_components',  express.static('./bower_components'));
 
 
 
 // *** config middleware *** //
-app.use(allowCrossDomain);
+//app.use(allowCrossDomain);
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 app.use(cookieParser('lorem'));
 
 app.use(session({
