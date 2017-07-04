@@ -6,10 +6,10 @@
    .factory('notification', notificationService);
           
     function notificationService($resource){
-          return $resource('http://localhost\:5000/api/notifications/', {}, {
+          return $resource('https://wesh-app.herokuapp.com/api/notifications/', {}, {
                 create: { method: 'POST' },
-                get: { method: 'GET', params:{id:'@id'}, isArray: true, url: 'http://localhost\:5000/api/users/:id/notifications'},
-                read: { method: 'PUT', params:{id:'@id'}, url: 'http://localhost\:5000/api/notifications/:id'}
+                get: { method: 'GET', params:{id:'@id'}, isArray: true, url: 'https://wesh-app.herokuapp.com/api/users/:id/notifications'},
+                read: { method: 'PUT', params:{id:'@id'}, url: 'https://wesh-app.herokuapp.com/api/notifications/:id'}
             });
     }
 })();

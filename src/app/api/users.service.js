@@ -6,7 +6,7 @@
    .factory('users', userService);
           
     function userService($resource){
-          return $resource('http://localhost\:5000/api/users/', {}, {
+          return $resource('https://wesh-app.herokuapp.com/api/users/', {}, {
                 create: { method: 'POST', withCredentials: true},
                 get: { method: 'GET', isArray: true, params:{id:'@id'} },
                 getAll: { method: 'GET', isArray: true},
@@ -14,20 +14,20 @@
                 update: { 
                   method: 'PUT',
                   params:{id:'@id'},
-                  url: 'http://localhost\:5000/api/users/:id'
+                  url: 'https://wesh-app.herokuapp.com/api/users/:id'
                 },
                 login: { 
-                  url: 'http://localhost\:5000/api/users/login/',
+                  url: 'https://wesh-app.herokuapp.com/api/users/login/',
                   method: 'POST',
                   withCredentials: true
                 },
                 logout: { 
-                  url: 'http://localhost\:5000/api/users/logout/',
+                  url: 'https://wesh-app.herokuapp.com/api/users/logout/',
                   method: 'GET',
                   withCredentials: true
                 },
                 loggedin: { 
-                  url: 'http://localhost\:5000/api/users/loggedin/',
+                  url: 'https://wesh-app.herokuapp.com/api/users/loggedin/',
                   method: 'GET',
                   withCredentials: true}
             });
