@@ -18,6 +18,7 @@ var routes = require('./routes/index.js');
 
 // *** express instance *** //
 var app = express();
+
 app.use(cors());
 
 
