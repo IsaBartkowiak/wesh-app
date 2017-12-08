@@ -423,15 +423,6 @@ router.put('/api/notifications/:id', function(req, res) {
   
 });
 
-//notifications d'un utilisateur
-router.get('/api/eventdetail/:id', function(req, res) {
- sequelize.query("SELECT * FROM `Event`", { type: sequelize.QueryTypes.SELECT})
-  .then(event => {
-console.log(event)
-  })
-
-});
-
 
 
 
