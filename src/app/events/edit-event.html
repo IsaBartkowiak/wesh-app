@@ -31,36 +31,16 @@
       
       <!-- 1er champ datepicker -->
       <div class="addevent-slot">
-       <div class="box-field col-xs-10">
+      <div class="box-field col-xs-12">
         <i class="icon-calendar input-icon"></i>
-        <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="edit.dates[0].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
+        <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="date" ng-model="edit.event.slots[0].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
       </div>
       
-      <div class="col-xs-2 addevent-slot-btn">
-       <span class="btn btn-plus" ng-click="edit.addField()">
-         <i class="icon-plus"></i>
-       </span>
-     </div>
-   </div>
-   
-   <!-- repeater -->
-   <div class="addevent-slot" ng-repeat="field in edit.field">
-    <!-- bouton input -->
-    <div class="box-field col-xs-10">
-      <i class="icon-calendar input-icon"></i>
-      <input class="input icon" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Date" show-todays-date="" format="DD/MM/YYYY HH:mm" min-date="" ng-model="edit.dates[field.id].date" class="md-input" week-start="1" lang="fr" cancel-text="Annuler" today-text="Aujourd'hui">
     </div>
-    <!-- bouton supprimer -->
-    <div class="col-xs-2 addevent-slot-btn">
-     <span class="btn btn-plus" ng-click="edit.removeField(field)">
-       <i class="icon-trash"></i>
-     </span>
-   </div>
- </div> 
-
- <!-- bouton control -->
- <button ng-click="edit.deleteEvent($event)" class="btn btn-primary box-btn">Supprimer</button>
- <button ng-click="edit.updateEvent(editEventForm)" class="btn btn-primary box-btn">Enregistrer</button>
-</form>
+    
+    <!-- bouton control -->
+    <button ng-click="edit.deleteEvent($event)" class="btn btn-primary box-btn">Supprimer</button>
+    <button ng-click="edit.updateEvent(editEventForm)" class="btn btn-primary box-btn">Enregistrer</button>
+  </form>
 </div>
 </div>

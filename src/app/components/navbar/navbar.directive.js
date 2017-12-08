@@ -22,7 +22,7 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController($rootScope, $state, notification, auth) {
+    function NavbarController($rootScope, $state, $sce, notification, auth) {
       var vm = this;
       vm.currentState = $state.current.name;
       vm.user = $rootScope.currentUser;
@@ -31,6 +31,7 @@
       vm.readNotif = readNotif;
       vm.notifPanel = false;
       vm.logout = logout;
+      vm.sanitize = sanitize;
       
       init();
 
@@ -45,6 +46,11 @@
           });
         });
       }
+      
+      
+      function sanitize(string){
+        return $sce.trustAsHtml(string);
+      }  
       
       function readNotif(id){
         notification.read({id: id}, {}, function(data){

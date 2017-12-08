@@ -19,7 +19,7 @@
     "swig": "^1.4.2"
   },
   "scripts": {
-    "start": "node ./server/bin/www",
+    "start": "nodemon ./server/bin/www",
     "test": "gulp test"
   },
   "devDependencies": {

@@ -21,17 +21,6 @@
     function init() {
       event.get({id: $stateParams.id}, function(data){
         vm.event = data;
-        var tmp = null;
-        /* on ne fait la recommandation que si il y a un nombre différent de participants (pas d'intéret sinon)
-        *  recommandation = on précoche une case
-        */
-        angular.forEach(data.slots, function(value) {
-          if(value.users.length != tmp && tmp != null){
-            vm.recommandation = true;
-            vm.showHelp = true;
-          }
-          tmp = value.users.length;
-        });
       });
     }
     

@@ -1,5 +1,5 @@
 .single{
-	&-place, &-author{
+	&-place, &-author, &-date{
 		font-family: 'gt';
 		display: inline-block;
 		vertical-align: middle;
@@ -16,11 +16,21 @@
 			font-size: 12px;
 		}
 	}
+	&-date{
+		border-left: 1px solid lighten($light-grey, 13%);
+		font-weight: lighter;
+		i{
+			font-size: 12px;
+		}
+	}
 	&-closed{
 		font-family: 'gt';
 		color: $pink;
 		font-weight: 400;
 		letter-spacing: 0;
 		margin-top: 0;
+	}
+	&-text{
+		margin-top: 30px;
 	}
 }

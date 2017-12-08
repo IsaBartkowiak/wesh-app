@@ -2,6 +2,7 @@ var express = require('express');
 var models = require('../models/index');
 var path = require('path');
 var passport = require('passport');
+var sequelize = require('sequelize');
 
 
 var router = express.Router();
@@ -52,7 +53,6 @@ router.get('/api/users/logout/', function(req, res) {
 
 //Création
 router.post('/api/users/', function(req, res) {
-  console.log(req.body);
   models.User.create({
     email : req.body.email,
     password : req.body.password,
@@ -75,8 +75,8 @@ router.post('/api/users/', function(req, res) {
     }
   })(req, res);
 }).catch(function (err) {
-    res.status(500).send({"status": "error"});
-  });
+  res.status(500).send({"status": "error"});
+});
 });
 
 //GET
@@ -422,6 +422,20 @@ router.put('/api/notifications/:id', function(req, res) {
   });
   
 });
+
+//notifications d'un utilisateur
+router.get('/api/eventdetail/:id', function(req, res) {
+ sequelize.query("SELECT * FROM `Event`", { type: sequelize.QueryTypes.SELECT})
+  .then(event => {
+console.log(event)
+  })
+
+});
+
+
+
+
+
 
 /*****************************************************************************
 * DEFAULT
